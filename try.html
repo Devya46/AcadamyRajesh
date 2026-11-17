@@ -1,0 +1,750 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Explore Courses · Rajesh Academy</title>
+
+    <!-- fonts & icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+
+    <style>
+      /* ----- reset & base ----- */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          "Inter",
+          system-ui,
+          -apple-system,
+          sans-serif;
+        background: #ffffff;
+        color: #171923;
+        line-height: 1.5;
+      }
+
+      /* ----- main section ----- */
+      .courses-section {
+        width: 100%;
+        padding: 4.5rem 1.25rem 5rem;
+        background: #ffffff;
+      }
+
+      .courses-container {
+        max-width: 1150px;
+        width: 100%;
+        margin: 0 auto;
+      }
+
+      /* ----- heading ----- */
+      .courses-heading {
+        text-align: center;
+        margin-bottom: 2.75rem;
+      }
+
+      .courses-eyebrow {
+        display: block;
+        color: #ff781c;
+        font-size: 0.9rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        margin-bottom: 0.25rem;
+      }
+
+      .courses-title {
+        font-size: 2.6rem;
+        font-weight: 700;
+        line-height: 1.25;
+        letter-spacing: -0.02em;
+        color: #171923;
+      }
+
+      /* ----- grid ----- */
+      .courses-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        column-gap: 1.5rem;
+        row-gap: 2.75rem;
+      }
+
+      /* ----- card ----- */
+      .course-card {
+        position: relative;
+        overflow: visible;
+        min-width: 0;
+        background: #fcfcfd;
+        border: 1px solid #e2e5ea;
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        transition:
+          box-shadow 0.25s ease,
+          transform 0.25s ease,
+          border-color 0.25s ease;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+      }
+
+      .course-card:hover {
+        box-shadow: 0 20px 32px -8px rgba(0, 0, 0, 0.12);
+        transform: translateY(-4px);
+        border-color: #d0d5dd;
+        z-index: 100;
+      }
+
+      /* ----- image ----- */
+      .course-image-wrapper {
+        position: relative;
+        width: 100%;
+        height: 170px;
+        overflow: hidden;
+        background: #f1f3f7;
+        border-radius: 8px 8px 0 0;
+      }
+
+      .course-image {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+      }
+
+      .course-card:hover .course-image {
+        transform: scale(1.04);
+      }
+
+      /* ----- badges ----- */
+      .course-badge {
+        position: absolute;
+        top: 0.85rem;
+        right: 0.85rem;
+        padding: 0.3rem 0.9rem;
+        color: #ffffff;
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+        border-radius: 8px;
+        text-transform: uppercase;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      }
+
+      .course-badge.new {
+        background: #16bd85;
+      }
+
+      .course-badge.special {
+        background: #f5a623;
+      }
+
+      /* ----- card content ----- */
+      .course-content {
+        padding: 1.3rem 1.3rem 1.1rem;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+      }
+
+      .course-category {
+        color: #8a8d96;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+        margin-bottom: 0.65rem;
+      }
+
+      .course-name {
+        color: #0f1522;
+        font-size: 1.05rem;
+        font-weight: 600;
+        line-height: 1.45;
+        min-height: 3.3rem;
+        margin-bottom: 1rem;
+      }
+
+      .course-divider {
+        width: 100%;
+        height: 1px;
+        background: #edf0f4;
+        margin-bottom: 1rem;
+      }
+
+      /* ----- card footer ----- */
+      .course-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        margin-top: auto;
+        min-height: 2.2rem;
+      }
+
+      .course-duration {
+        display: flex;
+        align-items: center;
+        gap: 0.45rem;
+        color: #6b7280;
+        font-size: 0.8rem;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+
+      .course-duration i {
+        font-size: 0.8rem;
+        color: #5f6b7a;
+      }
+
+      .course-pricing {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: center;
+        gap: 0.1rem;
+      }
+
+      .course-price {
+        font-size: 1.15rem;
+        color: #1f2937;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+
+      /* ----- floating popup (clean & compact) ----- */
+      .course-hover-info {
+        position: absolute;
+        width: 380px;
+        max-width: min(375px, 88vw);
+        top: 50%;
+        left: 50%;
+        z-index: 110;
+
+        background: #ffffff;
+        padding: 1.5rem 1.6rem 1.4rem;
+        border: 1px solid #eef1f5;
+        border-radius: 8px;
+
+        box-shadow:
+          0 24px 48px -12px rgba(0, 0, 0, 0.25),
+          0 4px 12px rgba(0, 0, 0, 0.05);
+
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+
+        transform: translate(-50%, -48%) scale(0.97);
+        transition:
+          opacity 0.2s ease,
+          transform 0.2s ease,
+          visibility 0.2s ease;
+      }
+
+      .course-card:hover .course-hover-info,
+      .course-card:focus-within .course-hover-info {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translate(-50%, -50%) scale(1);
+      }
+
+      /* ----- brand ----- */
+      .hover-academy {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.7rem;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #4d5868;
+      }
+
+      .hover-academy i {
+        color: #ff781c;
+        font-size: 1.1rem;
+      }
+
+      /* ----- popup title ----- */
+      .course-hover-info h3 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        line-height: 1.4;
+        color: #171923;
+        margin-bottom: 0.9rem;
+      }
+
+      /* ----- popup description ----- */
+      .course-hover-info p {
+        font-size: 0.8rem;
+        line-height: 1.6;
+        color: #636f7e;
+        margin-bottom: 1rem;
+
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      /* ----- popup meta row ----- */
+      .course-hover-details {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.65rem 1.2rem;
+        margin-bottom: 1.4rem;
+      }
+
+      .course-hover-detail {
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+        white-space: nowrap;
+      }
+
+      .course-hover-detail i {
+        color: #3b4a5e;
+        font-size: 0.85rem;
+      }
+
+      .course-hover-detail span {
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: #3b4a5e;
+      }
+
+      /* ----- preview button ----- */
+      .course-preview-btn {
+        width: 100%;
+        min-height: 2.8rem;
+        border: none;
+        background: #ff781c;
+        color: #ffffff;
+        border-radius: 8px;
+
+        font-family: inherit;
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        cursor: pointer;
+
+        transition:
+          background 0.2s ease,
+          transform 0.1s ease;
+        box-shadow: 0 4px 10px rgba(255, 120, 28, 0.2);
+      }
+
+      .course-preview-btn:hover {
+        background: #e9670c;
+      }
+
+      .course-preview-btn:active {
+        transform: scale(0.98);
+      }
+
+      /* ----- popup bottom row ----- */
+      .course-hover-bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        margin-top: 1.1rem;
+      }
+
+      .hover-wishlist {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        color: #848d9c;
+        font-size: 0.75rem;
+        font-weight: 500;
+      }
+
+      .hover-wishlist i {
+        font-size: 0.9rem;
+        color: #ff781c;
+      }
+
+      .hover-price {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #1f2a3a;
+        white-space: nowrap;
+      }
+
+      .hover-old-price {
+        color: #a5a5a5;
+        font-size: 0.75rem;
+        text-decoration: line-through;
+        margin-right: 0.3rem;
+      }
+
+      /* ----- responsive ----- */
+      @media (max-width: 900px) {
+        .courses-container {
+          max-width: 700px;
+        }
+
+        .courses-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          row-gap: 2rem;
+        }
+
+        .courses-title {
+          font-size: 2.1rem;
+        }
+
+        .course-hover-info {
+          width: 340px;
+          padding: 1.3rem 1.3rem 1.2rem;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .course-hover-info {
+          width: 300px;
+          padding: 1.2rem 1.1rem 1.1rem;
+        }
+
+        .course-hover-info h3 {
+          font-size: 0.95rem;
+        }
+
+        .course-hover-info p {
+          font-size: 0.75rem;
+          -webkit-line-clamp: 3;
+        }
+
+        .course-hover-details {
+          gap: 0.5rem 1rem;
+          margin-bottom: 1.1rem;
+        }
+
+        .course-preview-btn {
+          min-height: 2.5rem;
+          font-size: 0.75rem;
+        }
+      }
+
+      @media (max-width: 560px) {
+        .courses-section {
+          padding: 2rem 1rem 3rem;
+        }
+
+        .courses-heading {
+          margin-bottom: 2rem;
+        }
+
+        .courses-eyebrow {
+          font-size: 0.75rem;
+        }
+
+        .courses-title {
+          font-size: 1.8rem;
+        }
+
+        .courses-grid {
+          grid-template-columns: 1fr;
+          gap: 1.75rem;
+          max-width: 400px;
+          margin: 0 auto;
+        }
+
+        .course-image-wrapper {
+          height: 190px;
+        }
+
+        .course-content {
+          padding: 1.1rem 1.1rem 1rem;
+        }
+
+        .course-name {
+          font-size: 1rem;
+          min-height: auto;
+        }
+
+        .course-price {
+          font-size: 1.05rem;
+        }
+      }
+
+      @media (min-width: 561px) and (max-width: 700px) {
+        .course-image-wrapper {
+          height: 140px;
+        }
+
+        .course-content {
+          padding: 1rem 1rem 0.9rem;
+        }
+
+        .course-name {
+          font-size: 0.9rem;
+          min-height: 2.8rem;
+        }
+
+        .course-price {
+          font-size: 1rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <section class="courses-section" id="courses">
+      <div class="courses-container">
+        <!-- heading -->
+        <div class="courses-heading">
+          <span class="courses-eyebrow"> Checkout New List </span>
+          <h2 class="courses-title">Explore Courses</h2>
+        </div>
+
+        <!-- course grid -->
+        <div class="courses-grid" id="coursesGrid"></div>
+      </div>
+    </section>
+
+    <script>
+      /* ----- course data (refined details) ----- */
+      const courses = [
+        {
+          image:
+            "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?w=700&h=400&fit=crop",
+          category: "Technical Analysis + SMC",
+          title: "Complete Technical Analysis + SMC (Online Interactive)",
+          duration: "Live",
+          courseDuration: "4 Weeks",
+          schedule: "Sat & Sun",
+          time: "3 PM – 5 PM",
+          mode: "Online Interactive",
+          description:
+            "Master institutional trading with price action, smart money concepts, and hedging. Identify market structure, liquidity traps, and trend shifts with precision to boost profitability and reduce risk.",
+          previewUrl: "",
+          oldPrice: "",
+          price: "₹5,000",
+          badge: "SPECIAL",
+          badgeType: "special",
+        },
+        {
+          image:
+            "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=700&h=400&fit=crop",
+          category: "Options Trading",
+          title:
+            "Options Trading & Unique Hedging Strategies (Online Interactive)",
+          duration: "Live",
+          courseDuration: "4 Weeks",
+          schedule: "Sat & Sun",
+          time: "5 PM – 7 PM",
+          mode: "Online Interactive",
+          description:
+            "This course is tailored for traders who want to master options trading from the ground up. Whether you’re a beginner or already trading options, you will gain deep insights into strategy building, adjustments, and execution. The highlight of this course is learning high-probability strategies with minimal or zero risk, suitable for any market condition.",
+          previewUrl: "",
+          oldPrice: "",
+          price: "₹5,000",
+          badge: "",
+          badgeType: "",
+        },
+        {
+          image:
+            "https://images.unsplash.com/photo-1518546305927-5a555bb7020d?w=700&h=400&fit=crop",
+          category: "Crypto & Commodities",
+          title: "Crypto & Commodities Trading (Online Interactive)",
+          duration: "Live",
+          courseDuration: "4 Weeks",
+          schedule: "Sat & Sun",
+          time: "7 PM – 9 PM",
+          mode: "Online Interactive",
+          description:
+            "This unique course focuses on building a strong foundation for crypto and commodity trading. You will learn how to use a combination of price action, technical indicators, and risk-free strategies that are tailor-made for volatile markets. Whether you’re interested in trading Bitcoin, Ethereum, Gold, or Silver, this course gives you structured guidance and proven methods.",
+          previewUrl: "",
+          oldPrice: "",
+          price: "₹5,000",
+          badge: "",
+          badgeType: "",
+        },
+        {
+          image:
+            "https://images.unsplash.com/photo-1642104704074-907c0698cbd9?w=700&h=400&fit=crop",
+          category: "Crypto & Commodities",
+          title: "Crypto & Commodities Trading (Class Recordings)",
+          duration: "Recorded",
+          courseDuration: "08 videos, 16 Hours",
+          schedule: "No schedule, can join at any time",
+          time: "Study at your own time",
+          mode: "Recorded Videos",
+          description:
+            "Content same as interactive classes. It is recordings of interactive classes as it is.",
+          previewUrl: "",
+          oldPrice: "",
+          price: "₹3,000",
+          badge: "",
+          badgeType: "",
+        },
+        {
+          image:
+            "https://images.unsplash.com/photo-1535320903710-d993d3d77d29?w=700&h=400&fit=crop",
+          category: "Options Trading",
+          title:
+            "Options Trading & Unique Hedging Strategies (Class Recordings)",
+          duration: "Recorded",
+          courseDuration: "08 videos, 16 Hours",
+          schedule: "No schedule, can join at any time",
+          time: "Study at your own time",
+          mode: "Recorded Videos",
+          description:
+            "Content same as interactive classes. It is recordings of interactive classes as it is.",
+          previewUrl: "",
+          oldPrice: "",
+          price: "₹3,000",
+          badge: "",
+          badgeType: "",
+        },
+        {
+          image:
+            "https://images.unsplash.com/photo-1543286386-713bdd548da4?w=700&h=400&fit=crop",
+          category: "Price Action + SMC",
+          title: "Price Action + Smart Money Concepts (Class Recordings)",
+          duration: "Recorded",
+          courseDuration: "08 videos, 16 Hours",
+          schedule: "No schedule, can join at any time",
+          time: "Study at your own time",
+          mode: "Recorded Videos",
+          description:
+            "Content same as interactive classes. It is recordings of interactive classes as it is.",
+          previewUrl: "",
+          oldPrice: "",
+          price: "₹3,000",
+          badge: "",
+          badgeType: "",
+        },
+        {
+          image:
+            "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=700&h=400&fit=crop",
+          category: "Algo Trading",
+          title: "Python Based Algo Trading setup",
+          duration: "Live",
+          courseDuration: "4 Weeks",
+          schedule: "Sat & Sun",
+          time: "8 PM to 10 PM",
+          mode: "Online Interactive",
+          description:
+            "Build automated trading systems with Python. Covers API integration, backtesting, live trading setup, and risk management.",
+          previewUrl: "",
+          oldPrice: "",
+          price: "₹5,000",
+          badge: "",
+          badgeType: "",
+        },
+      ];
+
+      /* ----- render cards ----- */
+      const coursesGrid = document.getElementById("coursesGrid");
+
+      coursesGrid.innerHTML = courses
+        .map(
+          (course) => `
+        <article class="course-card" tabindex="0">
+          <div class="course-image-wrapper">
+            <img src="${course.image}" alt="${course.title}" class="course-image" loading="lazy">
+            ${
+              course.badge
+                ? `<span class="course-badge ${course.badgeType}">${course.badge}</span>`
+                : ""
+            }
+          </div>
+
+          <div class="course-content">
+            <span class="course-category">${course.category}</span>
+            <h3 class="course-name">${course.title}</h3>
+            <div class="course-divider"></div>
+            <div class="course-footer">
+              <div class="course-duration">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <span>${course.duration || "Course"}</span>
+              </div>
+              <div class="course-pricing">
+                <span class="course-price">${course.price}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- floating popup -->
+          <div class="course-hover-info">
+            <div class="hover-academy">
+              <i class="fa-solid fa-graduation-cap"></i>
+              <span>Rajesh Academy</span>
+            </div>
+
+            <h3>${course.title}</h3>
+
+            <p>${course.description || "Explore this course to develop your trading knowledge through structured learning and practical market insights."}</p>
+
+            <div class="course-hover-details">
+              <div class="course-hover-detail">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <span>${course.courseDuration || "—"}</span>
+              </div>
+              <div class="course-hover-detail">
+                <i class="fa-solid fa-calendar-days"></i>
+                <span>${course.schedule || "—"}</span>
+              </div>
+              <div class="course-hover-detail">
+                <i class="fa-regular fa-hourglass-half"></i>
+                <span>${course.time || "—"}</span>
+              </div>
+              <div class="course-hover-detail">
+                <i class="fa-solid fa-laptop"></i>
+                <span>${course.mode || "—"}</span>
+              </div>
+            </div>
+
+            <button class="course-preview-btn" type="button" data-preview="${course.previewUrl || ""}">
+              PREVIEW THIS COURSE
+            </button>
+
+            <div class="course-hover-bottom">
+              <div class="hover-wishlist">
+                <i class="fa-regular fa-circle-play"></i>
+                <span>${course.mode || "Course"}</span>
+              </div>
+              <div class="hover-price">
+                ${course.oldPrice ? `<span class="hover-old-price">${course.oldPrice}</span>` : ""}
+                ${course.price}
+              </div>
+            </div>
+          </div>
+        </article>
+      `,
+        )
+        .join("");
+
+      /* ----- preview button handler ----- */
+      document.querySelectorAll(".course-preview-btn").forEach((btn) => {
+        btn.addEventListener("click", function (e) {
+          e.stopPropagation(); // prevent card click if needed
+          const previewUrl = this.dataset.preview;
+          if (previewUrl) {
+            window.open(previewUrl, "_blank");
+          } else {
+            alert("Course preview will be available soon!");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

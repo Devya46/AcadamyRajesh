@@ -1,0 +1,701 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Testimonials — auto single-item carousel</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background: #f1f2f6;
+      }
+
+      /* TESTIMONIAL SECTION */
+
+      .testimonial-section {
+        width: 100%;
+        min-height: auto;
+        background: #ffffff;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        padding: 55px 120px;
+        position: relative;
+      }
+
+      .testimonial-section::before {
+        content: "";
+        position: absolute;
+        width: 600px;
+        height: 300px;
+        left: -100px;
+        bottom: -80px;
+        opacity: 0.25;
+        background: repeating-radial-gradient(
+          ellipse at 0% 100%,
+          transparent 0px,
+          transparent 12px,
+          rgba(130, 140, 160, 0.12) 13px,
+          transparent 14px
+        );
+        pointer-events: none;
+      }
+
+      /* MAIN LAYOUT */
+
+      .testimonial-wrapper {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 340px 1fr;
+        gap: 28px;
+        align-items: center;
+        padding-left: max(36px, calc((100vw - 1440px) / 2));
+        position: relative;
+        z-index: 1;
+      }
+
+      /* LEFT CONTENT */
+
+      .testimonial-intro {
+        padding-right: 0;
+        position: relative;
+        z-index: 3;
+      }
+
+      .testimonial-label {
+        font-size: 17px;
+        letter-spacing: 0.3px;
+        color: #ff781c;
+        font-weight: 500;
+        margin-bottom: 8px;
+      }
+
+      .testimonial-intro h2 {
+        font-size: clamp(38px, 3.6vw, 38px);
+        line-height: 1.2;
+        font-weight: 600;
+        color: #20212a;
+        letter-spacing: -1.5px;
+        margin-bottom: 22px;
+      }
+
+      .testimonial-intro p {
+        font-size: 16px;
+        line-height: 1.8;
+        color: #777b89;
+        font-weight: 400;
+      }
+
+      /* SLIDER */
+
+      .testimonial-slider {
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .testimonial-track {
+        display: flex;
+        width: max-content;
+        gap: 28px;
+        will-change: transform;
+      }
+
+      /* NAV BUTTONS */
+
+      .slider-nav {
+        display: flex;
+        gap: 10px;
+        margin-top: 22px;
+        margin-left: 4px;
+        position: relative;
+        z-index: 4;
+      }
+
+      .nav-btn {
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        border: 1.5px solid rgba(32, 33, 42, 0.14);
+        background: #ffffff;
+        color: #20212a;
+        font-size: 20px;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.22s ease;
+        box-shadow: 0 3px 10px rgba(25, 30, 50, 0.06);
+        padding-bottom: 2px;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .nav-btn:hover {
+        background: #ff781c;
+        border-color: #ff781c;
+        color: #ffffff;
+        box-shadow: 0 6px 16px rgba(255, 23, 68, 0.25);
+      }
+
+      .nav-btn:active {
+        transform: scale(0.94);
+      }
+
+      .nav-btn:focus-visible {
+        outline: 2px solid #ff781c;
+        outline-offset: 2px;
+      }
+
+      /* CARD */
+
+      .testimonial-card {
+        flex: 0 0 365px;
+        min-height: 430px;
+        background: #e9eeff;
+        border-radius: 12px;
+        padding: 35px 42px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border: 1px solid #00002024;
+        box-shadow: 0 10px 30px rgba(25, 30, 50, 0.045);
+      }
+
+      /* QUOTE */
+
+      .testimonial-quote {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .quote-label {
+        color: #ff781c;
+        font-size: 17px;
+        font-weight: 600;
+        margin-bottom: 24px;
+        letter-spacing: 0.2px;
+      }
+
+      .testimonial-quote p {
+        color: #6b6e7c;
+        font-size: 17px;
+        line-height: 1.95;
+        font-weight: 400;
+      }
+
+      /* AUTHOR */
+
+      .testimonial-author {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        margin-top: 30px;
+      }
+
+      .testimonial-author img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+        background: #f1f2f6;
+        flex-shrink: 0;
+      }
+
+      .author-details h4 {
+        color: #20212a;
+        font-size: 17px;
+        font-weight: 700;
+        line-height: 1.5;
+      }
+
+      .author-details span {
+        display: block;
+        color: #858896;
+        font-size: 14px;
+        margin-top: 2px;
+      }
+
+      /* RESPONSIVE — 1100px */
+
+      @media (max-width: 1100px) {
+        .testimonial-wrapper {
+          grid-template-columns: 280px 1fr;
+          gap: 22px;
+          padding-left: 30px;
+        }
+
+        .testimonial-card {
+          flex-basis: 360px;
+          padding: 38px 32px;
+          min-height: 560px;
+        }
+
+        .testimonial-intro h2 {
+          font-size: 42px;
+        }
+
+        .testimonial-quote p {
+          font-size: 16px;
+          line-height: 1.85;
+        }
+
+        .quote-label {
+          font-size: 16px;
+          margin-bottom: 20px;
+        }
+
+        .testimonial-author img {
+          width: 54px;
+          height: 54px;
+        }
+
+        .author-details h4 {
+          font-size: 16px;
+        }
+      }
+
+      /* RESPONSIVE — 700px */
+
+      @media (max-width: 700px) {
+        .testimonial-section {
+          padding: 55px 0;
+          min-height: auto;
+        }
+
+        .testimonial-wrapper {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          padding-left: 20px;
+          gap: 36px;
+        }
+
+        .testimonial-intro {
+          padding-right: 20px;
+        }
+
+        .testimonial-label {
+          font-size: 15px;
+          margin-bottom: 6px;
+        }
+
+        .testimonial-intro h2 {
+          font-size: 38px;
+          margin-bottom: 16px;
+          letter-spacing: -1px;
+        }
+
+        .testimonial-intro p {
+          font-size: 14px;
+          line-height: 1.75;
+        }
+
+        .testimonial-slider {
+          width: calc(100vw - 20px);
+        }
+
+        .testimonial-track {
+          gap: 16px;
+        }
+
+        .testimonial-card {
+          flex-basis: 300px;
+          min-height: 500px;
+          padding: 30px 24px;
+        }
+
+        .quote-label {
+          font-size: 15px;
+          margin-bottom: 16px;
+        }
+
+        .testimonial-quote p {
+          font-size: 14.5px;
+          line-height: 1.8;
+        }
+
+        .testimonial-author {
+          gap: 14px;
+          margin-top: 24px;
+        }
+
+        .testimonial-author img {
+          width: 48px;
+          height: 48px;
+        }
+
+        .author-details h4 {
+          font-size: 14px;
+        }
+
+        .author-details span {
+          font-size: 12px;
+        }
+
+        .slider-nav {
+          margin-top: 18px;
+        }
+
+        .nav-btn {
+          width: 42px;
+          height: 42px;
+          font-size: 18px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .testimonial-track {
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <section class="testimonial-section">
+      <div class="testimonial-wrapper">
+        <!-- LEFT CONTENT -->
+
+        <div class="testimonial-intro">
+          <div class="testimonial-label">Our Testimonials</div>
+
+          <h2>
+            What Students<br />
+            are Saying..!!
+          </h2>
+
+          <p>
+            Our goal is to empower every learner with practical trading
+            knowledge, proven strategies and the right guidance to navigate
+            financial markets with confidence.
+          </p>
+
+          <!-- NAV BUTTONS -->
+          <div
+            class="slider-nav"
+            role="group"
+            aria-label="Testimonial navigation"
+          >
+            <button
+              class="nav-btn"
+              id="prevBtn"
+              aria-label="Previous testimonial"
+            >
+              &#8249;
+            </button>
+            <button class="nav-btn" id="nextBtn" aria-label="Next testimonial">
+              &#8250;
+            </button>
+          </div>
+        </div>
+
+        <!-- AUTO SINGLE-ITEM CAROUSEL -->
+
+        <div class="testimonial-slider">
+          <div class="testimonial-track" id="testimonialTrack">
+            <!-- Cards generated through JavaScript (duplicated for infinite loop) -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      /* TESTIMONIAL DATA */
+
+      const testimonials = [
+        {
+          name: "Debasis Bhattacharya",
+          quote:
+            "One of the best teachers I've ever met. Extremely dedicated, always eager to share every bit of knowledge with students.",
+        },
+
+        {
+          name: "Bharat Choudhary",
+          quote:
+            "मैंने पहले बहुत नुकसान किया और कई महंगे कोर्स किए, लेकिन इतनी कम फीस में जो सर ने सिखाया वैसा कहीं नहीं सिखाया गया। अब मैं सर की हेजिंग स्ट्रेटेजी से 10% से ज़्यादा लाभ कमा लेता हूँ।",
+        },
+
+        {
+          name: "Nitin",
+          quote:
+            "No doubt I got 10 times more than the fee I paid. Excellent content, excellent explanation. One of the best courses I've ever joined.",
+        },
+
+        {
+          name: "Ajay Kumar Sahu",
+          quote:
+            "सर इतना बढ़िया समझाते हैं कि कठिन बातें भी आसान लगने लगती हैं। अब मैं बाजार की किसी भी स्थिति में मुनाफा बना लेता हूँ। पिछले महीने मैंने ₹62,000 का प्रॉफिट कमाया। इसके लिए सर को धन्यवाद।",
+        },
+
+        {
+          name: "Arindam",
+          quote:
+            "I gained immensely from the course. My overtrading habit is gone, and now I consistently make ₹10,000 to ₹20,000 per day.",
+        },
+
+        {
+          name: "Deepak Kedare",
+          quote:
+            "The content and explanations are outstanding. Sir sometimes teaches for 6 hours straight just to clear all doubts. He's incredibly dedicated—even answers calls personally.",
+        },
+      ];
+
+      /* CARD GENERATOR */
+
+      const track = document.getElementById("testimonialTrack");
+      const prevBtn = document.getElementById("prevBtn");
+      const nextBtn = document.getElementById("nextBtn");
+
+      const profileImage =
+        "https://www.rajeshacademy.in/wp-content/uploads/2025/05/profile-icon.jpg";
+
+      function createTestimonialCard(item) {
+        return `
+        <div class="testimonial-card">
+
+            <div class="testimonial-quote">
+
+                <div class="quote-label">
+                    Student Experience
+                </div>
+
+                <p>${item.quote}</p>
+
+            </div>
+
+            <div class="testimonial-author">
+
+                <img
+                    src="${profileImage}"
+                    alt="${item.name}"
+                    loading="lazy"
+                >
+
+                <div class="author-details">
+
+                    <h4>${item.name}</h4>
+
+                    <span>Student</span>
+
+                </div>
+
+            </div>
+
+        </div>
+    `;
+      }
+
+      /* --------------------------------------------------------------
+   BUILD CARDS — duplicate the set so we can loop seamlessly
+   -------------------------------------------------------------- */
+
+      const cardsHTML = testimonials.map(createTestimonialCard).join("");
+
+      /* Original + duplicate = seamless loop when jumping back */
+      track.innerHTML = cardsHTML + cardsHTML;
+
+      const totalCards = testimonials.length; // number of UNIQUE cards
+
+      /* --------------------------------------------------------------
+   AUTO SINGLE-ITEM SLIDE CAROUSEL (infinite, never-ending)
+   -------------------------------------------------------------- */
+
+      const AUTO_INTERVAL = 3800; // ms between automatic slides
+      const TRANSITION_MS = 650; // must match CSS transition duration
+
+      let currentIndex = 0; // index in the FULL (duplicated) track
+      let isTransitioning = false;
+      let autoTimer = null;
+      let isPaused = false;
+
+      /* measure distance between two cards (card width + gap) */
+      function getStep() {
+        const card = track.querySelector(".testimonial-card");
+        if (!card) return 0;
+        const style = getComputedStyle(track);
+        const gap = parseFloat(style.gap) || 0;
+        return card.getBoundingClientRect().width + gap;
+      }
+
+      /* instantly set the transform (no animation) */
+      function setTranslate(offsetPx) {
+        track.style.transition = "none";
+        track.style.transform = `translateX(${-offsetPx}px)`;
+        /* force reflow so the browser registers the jump */
+        void track.offsetWidth;
+      }
+
+      /* animated slide to the given card index */
+      function slideTo(index, animate = true) {
+        const step = getStep();
+        if (animate) {
+          track.style.transition = `transform ${TRANSITION_MS}ms cubic-bezier(0.22, 0.61, 0.36, 1)`;
+        } else {
+          track.style.transition = "none";
+        }
+        track.style.transform = `translateX(${-index * step}px)`;
+      }
+
+      /* go to next card (infinite) */
+      function goNext() {
+        if (isTransitioning) return;
+        isTransitioning = true;
+
+        currentIndex += 1;
+        slideTo(currentIndex, true);
+
+        /* when we've moved into the duplicated set (second half),
+       after the animation completes, silently jump back by one full set
+       so we can keep going forever without hitting the edge */
+        setTimeout(() => {
+          if (currentIndex >= totalCards) {
+            currentIndex -= totalCards; // shift back to the first set
+            setTranslate(currentIndex * getStep()); // jump without animation
+          }
+          isTransitioning = false;
+        }, TRANSITION_MS + 20);
+      }
+
+      /* go to previous card (infinite) */
+      function goPrev() {
+        if (isTransitioning) return;
+        isTransitioning = true;
+
+        /* If we're at the beginning (first set), jump to the mirrored position
+       in the duplicated set first, then animate backwards. */
+        if (currentIndex <= 0) {
+          currentIndex += totalCards; // move into duplicated set
+          setTranslate(currentIndex * getStep()); // instant jump
+          /* force reflow so the next animated slide works */
+          void track.offsetWidth;
+        }
+
+        currentIndex -= 1;
+        slideTo(currentIndex, true);
+
+        setTimeout(() => {
+          isTransitioning = false;
+        }, TRANSITION_MS + 20);
+      }
+
+      /* auto-play */
+      function startAuto() {
+        stopAuto();
+        autoTimer = setInterval(() => {
+          if (!isPaused && !isTransitioning) {
+            goNext();
+          }
+        }, AUTO_INTERVAL);
+      }
+
+      function stopAuto() {
+        if (autoTimer) {
+          clearInterval(autoTimer);
+          autoTimer = null;
+        }
+      }
+
+      /* BUTTON EVENTS — manual navigation resets the auto timer */
+
+      nextBtn.addEventListener("click", () => {
+        if (isTransitioning) return;
+        goNext();
+        startAuto(); // restart timer so user gets a full interval before next auto slide
+      });
+
+      prevBtn.addEventListener("click", () => {
+        if (isTransitioning) return;
+        goPrev();
+        startAuto();
+      });
+
+      /* PAUSE ON HOVER (over the slider only) */
+      const slider = document.querySelector(".testimonial-slider");
+
+      slider.addEventListener("mouseenter", () => {
+        isPaused = true;
+      });
+
+      slider.addEventListener("mouseleave", () => {
+        isPaused = false;
+      });
+
+      /* PAUSE ON FOCUS inside slider (accessibility) */
+      slider.addEventListener("focusin", () => {
+        isPaused = true;
+      });
+
+      slider.addEventListener("focusout", () => {
+        isPaused = false;
+      });
+
+      /* KEYBOARD SUPPORT */
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowRight") {
+          if (isTransitioning) return;
+          goNext();
+          startAuto();
+        } else if (e.key === "ArrowLeft") {
+          if (isTransitioning) return;
+          goPrev();
+          startAuto();
+        }
+      });
+
+      /* INITIALISE */
+
+      function initCarousel() {
+        /* set initial position instantly, no transition */
+        setTranslate(0);
+        currentIndex = 0;
+        isTransitioning = false;
+
+        /* start auto after a tiny delay to let layout settle */
+        setTimeout(() => {
+          startAuto();
+        }, 800);
+      }
+
+      /* wait for fonts/images so measurements are accurate */
+      window.addEventListener("load", () => {
+        requestAnimationFrame(initCarousel);
+      });
+
+      /* RECALCULATE ON RESIZE — keep current card aligned */
+      let resizeTimer;
+      window.addEventListener("resize", () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          if (!isTransitioning) {
+            /* clamp index if it somehow went out of range */
+            if (currentIndex >= totalCards * 2) {
+              currentIndex = currentIndex % totalCards;
+            }
+            setTranslate(currentIndex * getStep());
+          }
+        }, 120);
+      });
+
+      /* REDUCED MOTION — disable transitions and auto-play */
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        track.style.transition = "none";
+        /* override startAuto to do nothing */
+        startAuto = function () {};
+      }
+    </script>
+  </body>
+</html>

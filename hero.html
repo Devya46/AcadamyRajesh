@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Forex Academy — Grid Flip</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: #03090e;
+        font-family: "Poppins", sans-serif;
+      }
+
+      /* ===== HERO ===== */
+      .fx-hero {
+        position: relative;
+        min-height: 700px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        background: #03090e;
+        isolation: isolate;
+      }
+
+      /* ===== IMAGE GRID AREA ===== */
+      .fx-image-area {
+        position: absolute;
+        inset: 0 0 0 28%;
+        display: grid;
+        grid-template-columns: repeat(8, 1fr);
+        grid-template-rows: repeat(6, 1fr);
+        gap: 0;
+        z-index: -1;
+        overflow: hidden;
+        perspective: 1600px;
+      }
+
+      /* Each cell is a 3D flip container */
+      .fx-cell {
+        position: relative;
+        min-width: 0;
+        min-height: 0;
+        perspective: 1000px;
+      }
+
+      .fx-cell-inner {
+        position: absolute;
+        inset: 0;
+        transform-style: preserve-3d;
+        transition: transform 0.9s cubic-bezier(0.65, 0, 0.25, 1);
+      }
+
+      .fx-cell.flip-forward .fx-cell-inner {
+        transform: rotateY(180deg);
+      }
+
+      .fx-cell.flip-backward .fx-cell-inner {
+        transform: rotateY(0deg);
+      }
+
+      /* Faces */
+      .fx-face {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        background-repeat: no-repeat;
+        background-size: 800% 600%; /* 8 cols x 6 rows */
+      }
+
+      .fx-face.front {
+        transform: rotateY(0deg);
+      }
+      .fx-face.back {
+        transform: rotateY(180deg);
+      }
+
+      /* Subtle grid lines & depth */
+      .fx-cell::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 3;
+        pointer-events: none;
+        border-right: 1px solid rgba(9, 200, 236, 0.1);
+        border-bottom: 1px solid rgba(9, 200, 236, 0.1);
+        background: linear-gradient(
+          90deg,
+          rgba(0, 0, 0, 0.02),
+          rgba(0, 0, 0, 0.08)
+        );
+      }
+
+      .fx-cell.is-moving::after {
+        box-shadow: inset 0 0 30px rgba(9, 200, 236, 0.25);
+      }
+
+      /* ===== DARK OVERLAY ===== */
+      .fx-overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        background:
+          linear-gradient(
+            90deg,
+            #03090e 0%,
+            #03090e 27%,
+            rgba(3, 9, 14, 0.96) 38%,
+            rgba(3, 9, 14, 0.72) 53%,
+            rgba(3, 9, 14, 0.22) 100%
+          ),
+          linear-gradient(0deg, rgba(3, 9, 14, 0.65), transparent 60%);
+      }
+
+      /* ===== CONTENT ===== */
+      .fx-content {
+        position: relative;
+        z-index: 5;
+        width: 100%;
+        max-width: 1450px;
+        margin: auto;
+        padding: 100px 65px;
+        pointer-events: none;
+      }
+
+      .fx-content-inner {
+        max-width: 760px;
+      }
+
+      .fx-line {
+        width: 65px;
+        height: 4px;
+        background: #09c8ec;
+        margin-bottom: 30px;
+        box-shadow: 0 0 20px rgba(9, 200, 236, 0.4);
+      }
+
+      .fx-heading {
+        font-size: clamp(40px, 4.4vw, 68px);
+        font-weight: 800;
+        line-height: 1.15;
+        letter-spacing: -2px;
+        color: #fff;
+        margin-bottom: 22px;
+      }
+
+      .fx-heading span {
+        display: block;
+        color: #09c8ec;
+      }
+
+      .fx-description {
+        max-width: 650px;
+        font-size: 16px;
+        line-height: 1.85;
+        color: rgba(255, 255, 255, 0.78);
+        margin-bottom: 35px;
+      }
+
+      .fx-actions {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 35px;
+        pointer-events: auto;
+      }
+
+      .fx-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 15px;
+        padding: 16px 28px;
+        background: #09c8ec;
+        color: #031017;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 700;
+        transition: 0.3s ease;
+      }
+
+      .fx-primary:hover {
+        background: #fff;
+        transform: translateY(-3px);
+      }
+
+      .fx-primary i {
+        transition: transform 0.3s;
+      }
+      .fx-primary:hover i {
+        transform: translateX(5px);
+      }
+
+      .fx-secondary {
+        color: #fff;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        padding-bottom: 8px;
+        border-bottom: 2px solid #09c8ec;
+        transition: 0.3s;
+      }
+
+      .fx-secondary:hover {
+        color: #09c8ec;
+      }
+
+      /* ===== RESPONSIVE ===== */
+      @media (max-width: 900px) {
+        .fx-image-area {
+          left: 15%;
+        }
+        .fx-content {
+          padding: 80px 35px;
+        }
+        .fx-heading {
+          font-size: 49px;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .fx-hero {
+          min-height: 750px;
+          align-items: flex-end;
+        }
+        .fx-image-area {
+          inset: 0;
+        }
+        .fx-overlay {
+          background: linear-gradient(
+            180deg,
+            rgba(3, 9, 14, 0.12),
+            rgba(3, 9, 14, 0.55) 38%,
+            #03090e 85%
+          );
+        }
+        .fx-content {
+          padding: 100px 24px 75px;
+        }
+        .fx-heading {
+          font-size: clamp(34px, 9vw, 47px);
+          letter-spacing: -1px;
+        }
+        .fx-description {
+          font-size: 14px;
+        }
+        .fx-actions {
+          gap: 20px;
+        }
+        .fx-primary {
+          padding: 14px 19px;
+          font-size: 12px;
+        }
+        .fx-secondary {
+          font-size: 11px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .fx-cell-inner {
+          transition: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section class="fx-hero">
+      <!-- GRID GENERATED BY JS -->
+      <div class="fx-image-area" id="fxImageArea"></div>
+      <div class="fx-overlay"></div>
+
+      <!-- STATIC CONTENT -->
+      <div class="fx-content">
+        <div class="fx-content-inner">
+          <div class="fx-line"></div>
+          <h1 class="fx-heading">
+            MASTER THE MARKETS.
+            <span>BUILD YOUR KNOWLEDGE.</span>
+          </h1>
+          <p class="fx-description">
+            Develop a deeper understanding of Forex through structured
+            education, practical market knowledge and disciplined trading
+            principles.
+          </p>
+          <div class="fx-actions">
+            <a href="#courses" class="fx-primary">
+              EXPLORE COURSES
+              <i class="fa-solid fa-arrow-right"></i>
+            </a>
+            <a href="#academy" class="fx-secondary"> DISCOVER THE ACADEMY </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      /* =====================================
+     CONFIG — GRID & TIMING
+  ===================================== */
+      const COLS = 8;
+      const ROWS = 6;
+      const TOTAL_CELLS = COLS * ROWS; // 48
+
+      const FLIP_DURATION = 900; // ms per cell
+      const CELL_DELAY = 45; // stagger between cells (diagonal)
+      const IMAGE_PAUSE = 2000; // hold full image
+
+      /* =====================================
+     IMAGES (complete photographs)
+  ===================================== */
+      const images = [
+        "https://images.unsplash.com/photo-1563387852576-964bc31b73af?w=1600&auto=format&fit=crop&q=85",
+        "https://images.unsplash.com/photo-1511300636408-a63a89df3482?w=1600&auto=format&fit=crop&q=85",
+        "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1600&auto=format&fit=crop&q=85",
+      ];
+
+      const imageArea = document.getElementById("fxImageArea");
+
+      let currentImage = 0;
+      let isAnimating = false;
+
+      /* =====================================
+     PRELOAD
+  ===================================== */
+      function preloadImage(url) {
+        return new Promise((resolve, reject) => {
+          const img = new Image();
+          img.onload = () => resolve(url);
+          img.onerror = reject;
+          img.src = url;
+        });
+      }
+
+      /* =====================================
+     BUILD GRID OF FLIP CELLS
+  ===================================== */
+      const cells = [];
+
+      for (let row = 0; row < ROWS; row++) {
+        for (let col = 0; col < COLS; col++) {
+          const cell = document.createElement("div");
+          cell.className = "fx-cell";
+
+          // background-size for one cell = whole image scaled to grid
+          // background-position computed per cell
+          const posX = (col / (COLS - 1)) * 100;
+          const posY = (row / (ROWS - 1)) * 100;
+
+          cell.innerHTML = `
+        <div class="fx-cell-inner">
+          <div class="fx-face front"></div>
+          <div class="fx-face back"></div>
+        </div>
+      `;
+
+          const front = cell.querySelector(".front");
+          const back = cell.querySelector(".back");
+
+          // Full image displayed across grid
+          front.style.backgroundImage = `url("${images[0]}")`;
+          back.style.backgroundImage = `url("${images[1]}")`;
+
+          front.style.backgroundPosition = `${posX}% ${posY}%`;
+          back.style.backgroundPosition = `${posX}% ${posY}%`;
+
+          imageArea.appendChild(cell);
+
+          cells.push({
+            el: cell,
+            front,
+            back,
+            flipped: false,
+            row,
+            col,
+          });
+        }
+      }
+
+      /* =====================================
+     DIAGONAL DELAY (flip in rows & columns)
+     — uses (row + col) to create a wave
+     — also alternates direction per layer
+  ===================================== */
+      function getDelay(row, col) {
+        // diagonal wave from top-left to bottom-right
+        // plus a small column bias so rows and columns both feel active
+        return (
+          (row * COLS + col) * CELL_DELAY * 0.35 +
+          Math.abs(row - col) * CELL_DELAY * 0.25
+        );
+      }
+
+      /* =====================================
+     CHANGE IMAGE — diagonal cell-by-cell
+  ===================================== */
+      async function changeImage() {
+        if (isAnimating) return;
+        isAnimating = true;
+
+        const nextIndex = (currentImage + 1) % images.length;
+        const nextImage = images[nextIndex];
+
+        try {
+          // Preload full next image
+          await preloadImage(nextImage);
+
+          // Flip every cell with a diagonal stagger
+          const flipPromises = cells.map((cell) => {
+            return new Promise((resolve) => {
+              const delay = getDelay(cell.row, cell.col);
+
+              setTimeout(() => {
+                const hiddenFace = cell.flipped ? cell.front : cell.back;
+                hiddenFace.style.backgroundImage = `url("${nextImage}")`;
+
+                cell.el.classList.add("is-moving");
+                cell.el.classList.toggle("flip-forward", !cell.flipped);
+                cell.el.classList.toggle("flip-backward", cell.flipped);
+
+                setTimeout(() => {
+                  cell.flipped = !cell.flipped;
+                  cell.el.classList.remove("is-moving");
+                  resolve();
+                }, FLIP_DURATION);
+              }, delay);
+            });
+          });
+
+          await Promise.all(flipPromises);
+          currentImage = nextIndex;
+        } catch (err) {
+          console.error("Image transition error:", err);
+        }
+
+        isAnimating = false;
+      }
+
+      /* =====================================
+     SLIDESHOW LOOP
+  ===================================== */
+      async function startSlideshow() {
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches)
+          return;
+
+        try {
+          await Promise.all(images.map(preloadImage));
+
+          while (true) {
+            await new Promise((r) => setTimeout(r, IMAGE_PAUSE));
+            await changeImage();
+          }
+        } catch (err) {
+          console.error("Could not load slideshow images", err);
+        }
+      }
+
+      startSlideshow();
+    </script>
+  </body>
+</html>

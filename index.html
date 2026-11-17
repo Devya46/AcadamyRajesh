@@ -1,0 +1,5113 @@
+<!-- ------header------ -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Edu Stockx - Trading Courses</title>
+
+    <!-- Font Awesome (only external dependency) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      /* ========== RESET & BASE ========== */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+      }
+
+      body {
+        font-family:
+          "Inter",
+          system-ui,
+          -apple-system,
+          sans-serif;
+        background: #000;
+        color: #fff;
+        margin: 0;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      input,
+      select,
+      textarea,
+      button,
+      a,
+      [role="button"] {
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-family: inherit;
+        color: inherit;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+      }
+
+      ul {
+        list-style: none;
+      }
+
+      /* ========== SCROLLBAR ========== */
+      /* ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #111;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #ecae17;
+        border-radius: 10px;
+      } */
+
+      /* ========== UTILITY ========== */
+      .hidden {
+        display: none !important;
+      }
+
+      /* ========== HEADER ========== */
+      .header-wrapper {
+        position: relative;
+      }
+
+      .sticky-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 50;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        background-color: black;
+        transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+      }
+
+      .header-scrolled {
+        background-color: rgba(0, 0, 0, 0.96);
+        backdrop-filter: blur(20px);
+        border-bottom-color: rgba(255, 255, 255, 0.15);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+      }
+
+      .header-inner {
+        max-width: 1320px;
+        margin: 0 auto;
+        padding: 0 1rem;
+      }
+
+      @media (min-width: 640px) {
+        .header-inner {
+          padding: 0 1.5rem;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .header-inner {
+          padding: 0 2rem;
+        }
+      }
+
+      .header-bar {
+        height: 72px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+
+      @media (min-width: 1024px) {
+        .header-bar {
+          height: 82px;
+        }
+      }
+
+      /* ---------- Logo ---------- */
+      .logo-wrap {
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+      }
+
+      .logo-link {
+        display: block;
+        transition: transform 0.2s ease;
+      }
+
+      .logo-link:hover {
+        transform: scale(1.05);
+      }
+
+      .custom-logo {
+        height: 3rem;
+        width: auto;
+        object-fit: contain;
+        transition: all 0.2s ease;
+        filter: brightness(1.5);
+      }
+
+      /* ---------- Header right ---------- */
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-left: auto;
+      }
+
+      @media (min-width: 1024px) {
+        .header-right {
+          gap: 2rem;
+          margin-left: 0;
+          flex: 1;
+          justify-content: center;
+        }
+      }
+
+      /* ---------- Desktop nav ---------- */
+      .desktop-nav {
+        display: none;
+      }
+
+      @media (min-width: 1024px) {
+        .desktop-nav {
+          display: flex;
+          flex: 1;
+          justify-content: center;
+        }
+      }
+
+      .nav-list {
+        display: flex;
+        align-items: center;
+        gap: 0;
+      }
+
+      .nav-link {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.625rem 0.75rem;
+        border-radius: 0.75rem;
+        color: #fff;
+        font-weight: 600;
+        font-size: 15px;
+        transition: all 0.2s ease;
+      }
+
+      .nav-link:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .nav-link.active-mega {
+        background: rgba(255, 255, 255, 0.1);
+        color: #ecae17;
+      }
+
+      .nav-chevron {
+        font-size: 10px;
+        transition: transform 0.2s ease;
+      }
+
+      .nav-chevron.rotate-180 {
+        transform: rotate(180deg);
+      }
+
+      /* ---------- Mega dropdown ---------- */
+      .mega-parent {
+        position: relative;
+      }
+
+      .mega-panel {
+        position: absolute;
+        top: 60px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 820px;
+        max-width: 90vw;
+        background: #fff;
+        border-radius: 1.5rem;
+        box-shadow:
+          0 30px 50px -20px rgba(0, 0, 0, 0.7),
+          0 0 0 1px rgba(255, 255, 255, 0.1);
+        z-index: 50;
+        display: none;
+      }
+
+      .mega-panel.open {
+        display: block;
+      }
+
+      @media (min-width: 1280px) {
+        .mega-panel {
+          max-width: 820px;
+        }
+      }
+
+      .mega-grid {
+        display: grid;
+        grid-template-columns: 1fr 300px;
+        gap: 1.5rem;
+        padding: 1.5rem;
+      }
+
+      .mega-heading {
+        color: #6b7280;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .mega-heading i {
+        font-size: 12px;
+        color: #2563eb;
+      }
+
+      .course-list {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .course-item {
+        display: flex;
+        gap: 0.75rem;
+        align-items: flex-start;
+        padding: 0.5rem 0.75rem;
+        border-radius: 12px;
+        transition: all 0.2s ease;
+        border-left: 3px solid transparent;
+        cursor: pointer;
+      }
+
+      .course-item:hover {
+        background: #eff6ff;
+        border-left-color: #2563eb;
+      }
+
+      .course-item:hover .course-icon {
+        background: #dbeafe;
+        color: #1e40af;
+      }
+
+      .course-item:hover h5 {
+        color: #1e40af;
+      }
+
+      .course-icon {
+        width: 38px;
+        height: 38px;
+        background: #eff6ff;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        color: #2563eb;
+        font-size: 1rem;
+        transition: all 0.2s ease;
+      }
+
+      .course-item h5 {
+        font-size: 14px;
+        font-weight: 700;
+        color: #111827;
+        line-height: 1.25;
+        margin: 0;
+      }
+
+      .course-item p {
+        font-size: 11px;
+        color: #6b7280;
+        margin: 0;
+      }
+
+      .tag-blue {
+        color: #2563eb;
+        font-weight: 500;
+        font-size: 11px;
+        margin-left: 0.25rem;
+      }
+
+      /* ---------- Course preview panel ---------- */
+      .course-preview-panel {
+        background: #fff;
+        border-radius: 20px;
+        padding: 16px;
+        border: 1px solid #e5e7eb;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .course-preview-panel img {
+        width: 100%;
+        height: 210px;
+        object-fit: cover;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      }
+
+      .course-preview-badge {
+        background: #2563eb;
+        color: #fff;
+        font-size: 10px;
+        font-weight: 700;
+        padding: 3px 10px;
+        border-radius: 100px;
+        display: inline-block;
+        letter-spacing: 0.4px;
+        margin-top: 0.75rem;
+      }
+
+      .course-preview-title {
+        font-size: 16px;
+        font-weight: 700;
+        color: #111827;
+        margin-top: 12px;
+        line-height: 1.3;
+      }
+
+      .course-preview-desc {
+        font-size: 12px;
+        color: #6b7280;
+        margin-top: 6px;
+        line-height: 1.5;
+      }
+
+      .course-preview-meta {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 10px;
+        font-size: 11px;
+        color: #2563eb;
+        font-weight: 600;
+      }
+
+      /* ---------- Join button (desktop) ---------- */
+      .btn-join {
+        display: none;
+        height: 42px;
+        padding: 0 1.5rem;
+        border-radius: 0.375rem;
+        background: #ecae17;
+        color: #000;
+        font-weight: 700;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+        font-size: 14px;
+        flex-shrink: 0;
+      }
+
+      .btn-join:hover {
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        transform: scale(1.05);
+      }
+
+      @media (min-width: 1024px) {
+        .btn-join {
+          display: flex;
+        }
+      }
+
+      /* ---------- Hamburger ---------- */
+      .hamburger-wrap {
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+      }
+
+      @media (min-width: 1024px) {
+        .hamburger-wrap {
+          display: none;
+        }
+      }
+
+      .mobile-hamburger {
+        color: #fff;
+        line-height: 1;
+        font-size: 2rem;
+        padding: 0.25rem;
+        margin-right: -0.25rem;
+      }
+
+      @media (max-width: 1023px) {
+        .mobile-hamburger {
+          font-size: 1.8rem;
+        }
+        .custom-logo {
+          height: 3.2rem !important;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .sticky-header {
+          background-color: #000 !important;
+          backdrop-filter: none !important;
+          border-bottom-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .sticky-header.header-scrolled {
+          background-color: #000 !important;
+          backdrop-filter: none !important;
+          box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .custom-logo {
+          height: 4rem !important;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .custom-logo {
+          height: 4.8rem !important;
+        }
+        .mobile-hamburger {
+          font-size: 1.6rem;
+        }
+      }
+
+      /* ---------- Overlay ---------- */
+      .mega-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(4px);
+        z-index: 40;
+        display: none;
+      }
+
+      .mega-overlay.open {
+        display: block;
+      }
+
+      /* ---------- Mobile menu ---------- */
+      .mobile-menu {
+        position: fixed;
+        inset: 0;
+        background: #fff;
+        z-index: 100;
+        overflow-y: auto;
+        display: none;
+      }
+
+      .mobile-menu.open {
+        display: block;
+      }
+
+      .mobile-menu-header {
+        position: sticky;
+        top: 0;
+        background: #000;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 1rem 1.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        z-index: 10;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      }
+
+      .mobile-menu-header img {
+        height: 3rem;
+        width: auto;
+        object-fit: contain;
+      }
+
+      .mobile-close-btn {
+        color: #fff;
+        font-size: 2.5rem !important;
+        line-height: 1;
+        font-weight: 300;
+        padding: 0;
+      }
+
+      .mobile-menu-body {
+        padding: 1.25rem;
+        padding-bottom: 5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .mobile-link {
+        display: block;
+        padding: 0.75rem 0;
+        font-size: 18px;
+        font-weight: 600;
+        color: #111827;
+        border-bottom: 1px solid #e5e7eb;
+      }
+
+      .mobile-link i {
+        color: #ecae17;
+        margin-right: 0.75rem;
+        width: 1.5rem;
+        text-align: center;
+      }
+
+      /* Mobile submenu */
+      .mobile-submenu-wrap {
+        border-bottom: 1px solid #e5e7eb;
+        padding-bottom: 0.5rem;
+      }
+
+      .mobile-submenu-toggle {
+        padding: 0.75rem 0;
+        font-size: 18px;
+        font-weight: 600;
+        color: #111827;
+        width: 100%;
+        text-align: left;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .mobile-submenu-toggle i.fa-graduation-cap {
+        color: #ecae17;
+        margin-right: 0.75rem;
+      }
+
+      .mobile-submenu-chevron {
+        color: #9ca3af;
+        transition: transform 0.2s ease;
+        margin-left: 1rem;
+      }
+
+      .mobile-submenu-chevron.rotate-180 {
+        transform: rotate(180deg);
+      }
+
+      .mobile-submenu-content {
+        padding-left: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+        display: none;
+      }
+
+      .mobile-submenu-content.open {
+        display: flex;
+      }
+
+      .mobile-course-link {
+        display: flex;
+        gap: 0.75rem;
+        padding: 0.5rem 0;
+        align-items: center;
+      }
+
+      .mobile-course-icon {
+        width: 40px;
+        height: 40px;
+        background: #eff6ff;
+        border-radius: 0.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      .mobile-course-icon i {
+        color: #2563eb;
+      }
+
+      .mobile-course-text .course-name {
+        font-weight: 600;
+        color: #111827;
+        font-size: 13px;
+        line-height: 1.25;
+      }
+
+      .mobile-course-text .course-type {
+        font-size: 10px;
+        color: #2563eb;
+        font-weight: 500;
+      }
+
+      .mobile-join-wrap {
+        padding-top: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .btn-mobile-join {
+        display: block;
+        width: 100%;
+        padding: 0.875rem 0;
+        background: #ecae17;
+        color: #000;
+        text-align: center;
+        border-radius: 0.375rem;
+        font-weight: 700;
+      }
+
+      .mobile-social-wrap {
+        padding-top: 2rem;
+        border-top: 1px solid #e5e7eb;
+        margin-top: 1rem;
+      }
+
+      .mobile-social-label {
+        color: #9ca3af;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+
+      .mobile-social-icons {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1.25rem;
+      }
+
+      .mobile-social-icon {
+        width: 44px;
+        height: 44px;
+        background: #f3f4f6;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ecae17;
+        font-size: 1.25rem;
+        transition: all 0.2s ease;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      }
+
+      .mobile-social-icon:hover {
+        background: #ecae17;
+        color: #fff;
+      }
+
+      /* ---------- Gold accent ---------- */
+      .accent-gold {
+        color: #ecae17;
+      }
+      .bg-accent-gold {
+        background-color: #ecae17;
+      }
+      .border-accent-gold {
+        border-color: #ecae17;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="header-wrapper">
+      <!-- ================= HEADER ================= -->
+      <header id="siteHeader" class="sticky-header">
+        <div class="header-inner">
+          <div class="header-bar">
+            <!-- Logo -->
+            <div class="logo-wrap">
+              <a href="/" class="logo-link">
+                <img
+                  src="Photos/rajesh-logo.png"
+                  alt="Edu Stockx"
+                  class="custom-logo"
+                  onerror="
+                    this.src = 'https://placehold.co/100x40?text=FX';
+                    this.onerror = null;
+                  "
+                />
+              </a>
+            </div>
+
+            <!-- Right side -->
+            <div class="header-right">
+              <!-- Desktop nav -->
+              <nav class="desktop-nav" id="desktopNav">
+                <ul class="nav-list">
+                  <li><a href="index.html" class="nav-link">Home</a></li>
+                  <li><a href="About.html" class="nav-link">About Us</a></li>
+
+                  <!-- ===== Our Courses Mega Dropdown ===== -->
+                  <li class="mega-parent" id="megaParent">
+                    <button type="button" class="nav-link" id="megaToggle">
+                      Our Courses
+                      <i
+                        class="fas fa-chevron-down nav-chevron"
+                        id="megaChevron"
+                      ></i>
+                    </button>
+
+                    <div class="mega-panel" id="megaPanel">
+                      <div class="mega-grid">
+                        <!-- Left: course list -->
+                        <div>
+                          <h4 class="mega-heading">
+                            <i class="fas fa-graduation-cap"></i>
+                            All Courses
+                          </h4>
+                          <div class="course-list">
+                            <!-- Course 1 -->
+                            <a
+                              href="Courses/Complete-Technical-Analysis-SMC-Online.html"
+                              class="course-item"
+                              data-course="tech"
+                            >
+                              <div class="course-icon">
+                                <i class="fas fa-chart-bar"></i>
+                              </div>
+                              <div>
+                                <h5>
+                                  Complete Technical Analysis + SMC
+                                  <span class="tag-blue"
+                                    >(Online Interactive)</span
+                                  >
+                                </h5>
+                                <p>
+                                  Master technical analysis with smart money
+                                  concepts
+                                </p>
+                              </div>
+                            </a>
+                            <!-- Course 2 -->
+                            <a
+                              href="Courses/Crypto-Commodities-Class-Recordings.html"
+                              class="course-item"
+                              data-course="cryptoRec"
+                            >
+                              <div class="course-icon">
+                                <i class="fab fa-bitcoin"></i>
+                              </div>
+                              <div>
+                                <h5>
+                                  Crypto &amp; Commodities Trading
+                                  <span class="tag-blue"
+                                    >(Class Recordings)</span
+                                  >
+                                </h5>
+                                <p>
+                                  Learn crypto and commodities trading at your
+                                  pace
+                                </p>
+                              </div>
+                            </a>
+                            <!-- Course 3 -->
+                            <a
+                              href="Courses/Crypto-Commodities-Online.html"
+                              class="course-item"
+                              data-course="cryptoLive"
+                            >
+                              <div class="course-icon">
+                                <i class="fas fa-coins"></i>
+                              </div>
+                              <div>
+                                <h5>
+                                  Crypto &amp; Commodities Trading
+                                  <span class="tag-blue"
+                                    >(Online Interactive)</span
+                                  >
+                                </h5>
+                                <p>Live interactive sessions with experts</p>
+                              </div>
+                            </a>
+                            <!-- Course 4 -->
+                            <a
+                              href="Courses/Options-Hedging-Recordings.html"
+                              class="course-item"
+                              data-course="optionsRec"
+                            >
+                              <div class="course-icon">
+                                <i class="fas fa-shield-alt"></i>
+                              </div>
+                              <div>
+                                <h5>
+                                  Options Trading &amp; Unique Hedging
+                                  Strategies
+                                  <span class="tag-blue"
+                                    >(Class Recordings)</span
+                                  >
+                                </h5>
+                                <p>
+                                  Advanced options strategies and hedging
+                                  techniques
+                                </p>
+                              </div>
+                            </a>
+                            <!-- Course 5 -->
+                            <a
+                              href="Courses/Options-Hedging-Online.html"
+                              class="course-item"
+                              data-course="optionsLive"
+                            >
+                              <div class="course-icon">
+                                <i class="fas fa-chart-pie"></i>
+                              </div>
+                              <div>
+                                <h5>
+                                  Options Trading &amp; Unique Hedging
+                                  Strategies
+                                  <span class="tag-blue"
+                                    >(Online Interactive)</span
+                                  >
+                                </h5>
+                                <p>Live interactive options trading mastery</p>
+                              </div>
+                            </a>
+                            <!-- Course 6 -->
+                            <a
+                              href="Courses/Price-Action-SMC-Recordings.html"
+                              class="course-item"
+                              data-course="priceAction"
+                            >
+                              <div class="course-icon">
+                                <i class="fa-brands fa-skyatlas"></i>
+                              </div>
+                              <div>
+                                <h5>
+                                  Price Action + Smart Money Concepts
+                                  <span class="tag-blue"
+                                    >(Class Recordings)</span
+                                  >
+                                </h5>
+                                <p>Decode price action with SMC methodology</p>
+                              </div>
+                            </a>
+                            <!-- Course 7 -->
+                            <a
+                              href="Courses/Python-Algo-Trading.html"
+                              class="course-item"
+                              data-course="python"
+                            >
+                              <div class="course-icon">
+                                <i class="fab fa-python"></i>
+                              </div>
+                              <div>
+                                <h5>Python Based Algo Trading Setup</h5>
+                                <p>
+                                  Build and deploy automated trading systems
+                                </p>
+                              </div>
+                            </a>
+                          </div>
+                        </div>
+
+                        <!-- Right: course preview -->
+                        <div class="course-preview-panel">
+                          <img id="previewImg" src="" alt="Course preview" />
+                          <span class="course-preview-badge">FEATURED</span>
+                          <h4
+                            class="course-preview-title"
+                            id="previewTitle"
+                          ></h4>
+                          <p class="course-preview-desc" id="previewDesc"></p>
+                          <div class="course-preview-meta">
+                            <i class="fas fa-play-circle"></i>
+                            <span id="previewMeta"></span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+
+                  <!-- <li><a href="Gallery.html" class="nav-link">Gallery</a></li> -->
+                  <li>
+                    <a href="Testimonial.html" class="nav-link">Testimonial</a>
+                  </li>
+                  <li>
+                    <a href="Payment-Mode.html" class="nav-link"
+                      >Payment Mode</a
+                    >
+                  </li>
+                  <li><a href="FAQ.html" class="nav-link">FAQ</a></li>
+                  <!-- <li><a href="Webinar.html" class="nav-link">Webinar</a></li> -->
+                  <li>
+                    <a href="Contact.html" class="nav-link">Contact Us</a>
+                  </li>
+                </ul>
+              </nav>
+
+              <!-- Join Us (desktop) -->
+              <a href="FreeWebinar.html" class="btn-join">Free Webinar</a>
+
+              <!-- Hamburger (mobile) -->
+              <div class="hamburger-wrap">
+                <button
+                  type="button"
+                  class="mobile-hamburger"
+                  id="hamburgerBtn"
+                  aria-label="Open menu"
+                >
+                  <i class="fas fa-bars"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Overlay -->
+      <div class="mega-overlay" id="megaOverlay"></div>
+
+      <!-- ================= MOBILE MENU ================= -->
+      <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-header">
+          <img
+            src="images/Logo-eduStocks-Photoroom.png"
+            alt="Edu Stockx"
+            onerror="
+              this.src = 'https://placehold.co/100x40?text=FX';
+              this.onerror = null;
+            "
+          />
+          <button
+            type="button"
+            class="mobile-close-btn"
+            id="mobileCloseBtn"
+            aria-label="Close menu"
+          >
+            &times;
+          </button>
+        </div>
+
+        <div class="mobile-menu-body">
+          <a href="index.html" class="mobile-link">
+            <i class="fas fa-home"></i>Home
+          </a>
+          <a href="About.html" class="mobile-link">
+            <i class="fas fa-users"></i>About Us
+          </a>
+
+          <!-- Mobile Courses submenu -->
+          <div class="mobile-submenu-wrap">
+            <button
+              type="button"
+              class="mobile-submenu-toggle"
+              id="mobileSubmenuToggle"
+            >
+              <span> <i class="fas fa-graduation-cap"></i>Our Courses </span>
+              <i
+                class="fas fa-chevron-down mobile-submenu-chevron"
+                id="mobileSubmenuChevron"
+              ></i>
+            </button>
+
+            <div class="mobile-submenu-content" id="mobileSubmenuContent">
+              <a
+                href="Courses/Complete-Technical-Analysis-SMC-Online.html"
+                class="mobile-course-link"
+              >
+                <div class="mobile-course-icon">
+                  <i class="fas fa-chart-bar"></i>
+                </div>
+                <div class="mobile-course-text">
+                  <div class="course-name">
+                    Complete Technical Analysis + SMC
+                  </div>
+                  <div class="course-type">Online Interactive</div>
+                </div>
+              </a>
+              <a
+                href="Courses/Crypto-Commodities-Class-Recordings.html"
+                class="mobile-course-link"
+              >
+                <div class="mobile-course-icon">
+                  <i class="fab fa-bitcoin"></i>
+                </div>
+                <div class="mobile-course-text">
+                  <div class="course-name">
+                    Crypto &amp; Commodities Trading
+                  </div>
+                  <div class="course-type">Class Recordings</div>
+                </div>
+              </a>
+              <a
+                href="Courses/Crypto-Commodities-Online.html"
+                class="mobile-course-link"
+              >
+                <div class="mobile-course-icon">
+                  <i class="fas fa-coins"></i>
+                </div>
+                <div class="mobile-course-text">
+                  <div class="course-name">
+                    Crypto &amp; Commodities Trading
+                  </div>
+                  <div class="course-type">Online Interactive</div>
+                </div>
+              </a>
+              <a
+                href="Courses/Options-Hedging-Recordings.html"
+                class="mobile-course-link"
+              >
+                <div class="mobile-course-icon">
+                  <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="mobile-course-text">
+                  <div class="course-name">
+                    Options Trading &amp; Unique Hedging Strategies
+                  </div>
+                  <div class="course-type">Class Recordings</div>
+                </div>
+              </a>
+              <a
+                href="Courses/Options-Hedging-Online.html"
+                class="mobile-course-link"
+              >
+                <div class="mobile-course-icon">
+                  <i class="fas fa-chart-pie"></i>
+                </div>
+                <div class="mobile-course-text">
+                  <div class="course-name">
+                    Options Trading &amp; Unique Hedging Strategies
+                  </div>
+                  <div class="course-type">Online Interactive</div>
+                </div>
+              </a>
+              <a
+                href="Courses/Price-Action-SMC-Recordings.html"
+                class="mobile-course-link"
+              >
+                <div class="mobile-course-icon">
+                  <i class="fas fa-candlestick-chart"></i>
+                </div>
+                <div class="mobile-course-text">
+                  <div class="course-name">
+                    Price Action + Smart Money Concepts
+                  </div>
+                  <div class="course-type">Class Recordings</div>
+                </div>
+              </a>
+              <a
+                href="Courses/Python-Algo-Trading.html"
+                class="mobile-course-link"
+              >
+                <div class="mobile-course-icon">
+                  <i class="fab fa-python"></i>
+                </div>
+                <div class="mobile-course-text">
+                  <div class="course-name">Python Based Algo Trading Setup</div>
+                  <div class="course-type">Full Course</div>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <a href="Gallery.html" class="mobile-link">
+            <i class="fas fa-images"></i>Gallery
+          </a>
+          <a href="Testimonial.html" class="mobile-link">
+            <i class="fas fa-star"></i>Testimonial
+          </a>
+          <a href="Payment-Mode.html" class="mobile-link">
+            <i class="fas fa-credit-card"></i>Payment Mode
+          </a>
+          <a href="FAQ.html" class="mobile-link">
+            <i class="fas fa-question-circle"></i>FAQ
+          </a>
+          <a href="Webinar.html" class="mobile-link">
+            <i class="fas fa-video"></i>Webinar
+          </a>
+          <a href="Contact.html" class="mobile-link">
+            <i class="fas fa-envelope"></i>Contact Us
+          </a>
+
+          <div class="mobile-join-wrap">
+            <a href="https://t.me/EduStocksFx" class="btn-mobile-join"
+              >Join Us</a
+            >
+          </div>
+
+          <div class="mobile-social-wrap">
+            <p class="mobile-social-label">Follow Us</p>
+            <div class="mobile-social-icons">
+              <a
+                href="https://www.facebook.com/share/1CzT2inMuJ/"
+                class="mobile-social-icon"
+                aria-label="Facebook"
+              >
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="#" class="mobile-social-icon" aria-label="YouTube">
+                <i class="fab fa-youtube"></i>
+              </a>
+              <a
+                href="https://www.instagram.com/edustocksfx?igsh=bGlhZzd2MW5nZGFz"
+                class="mobile-social-icon"
+                aria-label="Instagram"
+              >
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a
+                href="https://t.me/edustockx"
+                class="mobile-social-icon"
+                aria-label="Telegram"
+              >
+                <i class="fab fa-telegram-plane"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        "use strict";
+
+        // ---------- DOM refs ----------
+        var header = document.getElementById("siteHeader");
+        var megaParent = document.getElementById("megaParent");
+        var megaToggle = document.getElementById("megaToggle");
+        var megaChevron = document.getElementById("megaChevron");
+        var megaPanel = document.getElementById("megaPanel");
+        var megaOverlay = document.getElementById("megaOverlay");
+
+        var hamburgerBtn = document.getElementById("hamburgerBtn");
+        var mobileMenu = document.getElementById("mobileMenu");
+        var mobileCloseBtn = document.getElementById("mobileCloseBtn");
+        var mobileSubmenuToggle = document.getElementById(
+          "mobileSubmenuToggle",
+        );
+        var mobileSubmenuChevron = document.getElementById(
+          "mobileSubmenuChevron",
+        );
+        var mobileSubmenuContent = document.getElementById(
+          "mobileSubmenuContent",
+        );
+
+        var previewImg = document.getElementById("previewImg");
+        var previewTitle = document.getElementById("previewTitle");
+        var previewDesc = document.getElementById("previewDesc");
+        var previewMeta = document.getElementById("previewMeta");
+
+        // ---------- Course preview data ----------
+        var courseData = {
+          tech: {
+            img: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&auto=format&fit=crop&q=60",
+            title: "Complete Technical Analysis + SMC",
+            desc: "Master technical analysis with smart money concepts in this online interactive course.",
+            meta: "Online Interactive",
+          },
+          cryptoRec: {
+            img: "https://images.unsplash.com/photo-1621761191319-c6fb62004040?w=600&auto=format&fit=crop&q=60",
+            title: "Crypto & Commodities Trading",
+            desc: "Learn crypto and commodities trading at your own pace with recorded classes.",
+            meta: "Class Recordings",
+          },
+          cryptoLive: {
+            img: "https://images.unsplash.com/photo-1518546305927-5a555bb7020d?w=600&auto=format&fit=crop&q=60",
+            title: "Crypto & Commodities Trading",
+            desc: "Live interactive sessions with experts to trade crypto and commodities.",
+            meta: "Online Interactive",
+          },
+          optionsRec: {
+            img: "https://images.unsplash.com/photo-1633158829875-e5316a358c6f?w=600&auto=format&fit=crop&q=60",
+            title: "Options Trading & Unique Hedging Strategies",
+            desc: "Advanced options strategies and hedging techniques in recorded format.",
+            meta: "Class Recordings",
+          },
+          optionsLive: {
+            img: "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?w=600&auto=format&fit=crop&q=60",
+            title: "Options Trading & Unique Hedging Strategies",
+            desc: "Live interactive options trading mastery with hedging strategies.",
+            meta: "Online Interactive",
+          },
+          priceAction: {
+            img: "https://images.unsplash.com/photo-1535320903710-d993d3d77d29?w=600&auto=format&fit=crop&q=60",
+            title: "Price Action + Smart Money Concepts",
+            desc: "Decode price action with SMC methodology through recorded classes.",
+            meta: "Class Recordings",
+          },
+          python: {
+            img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&auto=format&fit=crop&q=60",
+            title: "Python Based Algo Trading Setup",
+            desc: "Build and deploy automated trading systems using Python.",
+            meta: "Full Course",
+          },
+        };
+
+        // ---------- State ----------
+        var megaOpen = false;
+        var closeTimeout = null;
+        var mobileOpen = false;
+        var mobileSubmenuOpen = false;
+
+        // ---------- Header scroll ----------
+        function onScroll() {
+          if (window.scrollY > 20) {
+            header.classList.add("header-scrolled");
+          } else {
+            header.classList.remove("header-scrolled");
+          }
+        }
+        window.addEventListener("scroll", onScroll, { passive: true });
+        onScroll();
+
+        // ---------- Course preview ----------
+        function setCoursePreview(key) {
+          var data = courseData[key] || courseData.tech;
+          previewImg.src = data.img;
+          previewImg.alt = data.title;
+          previewTitle.textContent = data.title;
+          previewDesc.textContent = data.desc;
+          previewMeta.textContent = data.meta;
+        }
+
+        // Attach hover listeners to course items
+        var courseItems = megaPanel.querySelectorAll(".course-item");
+        courseItems.forEach(function (item) {
+          item.addEventListener("mouseenter", function () {
+            var key = item.getAttribute("data-course");
+            if (key) setCoursePreview(key);
+          });
+        });
+
+        // Initialize preview with first course
+        setCoursePreview("tech");
+
+        // ---------- Mega menu ----------
+        function openMega() {
+          cancelClose();
+          megaOpen = true;
+          megaPanel.classList.add("open");
+          megaOverlay.classList.add("open");
+          megaChevron.classList.add("rotate-180");
+          megaToggle.classList.add("active-mega");
+        }
+
+        function closeMega() {
+          megaOpen = false;
+          megaPanel.classList.remove("open");
+          megaOverlay.classList.remove("open");
+          megaChevron.classList.remove("rotate-180");
+          megaToggle.classList.remove("active-mega");
+        }
+
+        function closeMegaDelayed() {
+          closeTimeout = setTimeout(function () {
+            if (megaOpen) {
+              closeMega();
+            }
+          }, 100);
+        }
+
+        function cancelClose() {
+          if (closeTimeout) {
+            clearTimeout(closeTimeout);
+            closeTimeout = null;
+          }
+        }
+
+        // Toggle on click (for touch/accessibility)
+        megaToggle.addEventListener("click", function (e) {
+          e.stopPropagation();
+          if (megaOpen) {
+            closeMega();
+          } else {
+            openMega();
+          }
+        });
+
+        // Hover open / delayed close
+        megaParent.addEventListener("mouseenter", openMega);
+        megaParent.addEventListener("mouseleave", closeMegaDelayed);
+
+        // Keep open when hovering the panel itself
+        megaPanel.addEventListener("mouseenter", cancelClose);
+        megaPanel.addEventListener("mouseleave", closeMegaDelayed);
+
+        // Close on overlay click
+        megaOverlay.addEventListener("click", function () {
+          closeMega();
+        });
+
+        // Close on Escape
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape") {
+            if (megaOpen) closeMega();
+            if (mobileOpen) closeMobile();
+          }
+        });
+
+        // Close on outside click
+        document.addEventListener("click", function (e) {
+          if (megaOpen && !megaParent.contains(e.target)) {
+            closeMega();
+          }
+        });
+
+        // Prevent panel clicks from bubbling to document
+        megaPanel.addEventListener("click", function (e) {
+          e.stopPropagation();
+        });
+
+        // ---------- Mobile menu ----------
+        function openMobile() {
+          mobileOpen = true;
+          mobileMenu.classList.add("open");
+          document.body.style.overflow = "hidden";
+          document.body.style.position = "fixed";
+          document.body.style.width = "100%";
+        }
+
+        function closeMobile() {
+          mobileOpen = false;
+          mobileMenu.classList.remove("open");
+          document.body.style.overflow = "";
+          document.body.style.position = "";
+          document.body.style.width = "";
+        }
+
+        hamburgerBtn.addEventListener("click", openMobile);
+        mobileCloseBtn.addEventListener("click", closeMobile);
+
+        // Close when clicking the backdrop (outside the body content)
+        mobileMenu.addEventListener("click", function (e) {
+          if (e.target === mobileMenu) closeMobile();
+        });
+
+        // ---------- Mobile submenu ----------
+        mobileSubmenuToggle.addEventListener("click", function () {
+          mobileSubmenuOpen = !mobileSubmenuOpen;
+          mobileSubmenuContent.classList.toggle("open", mobileSubmenuOpen);
+          mobileSubmenuChevron.classList.toggle(
+            "rotate-180",
+            mobileSubmenuOpen,
+          );
+        });
+
+        // ---------- Cleanup on page unload (optional, good practice) ----------
+        window.addEventListener("beforeunload", function () {
+          if (closeTimeout) clearTimeout(closeTimeout);
+        });
+
+        // Re-evaluate on window resize (close mobile menu if going desktop)
+        window.addEventListener("resize", function () {
+          if (window.innerWidth >= 1024 && mobileOpen) {
+            closeMobile();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>
+
+<!-- --- hero ---  -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Forex Academy — Grid Flip</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: #03090e;
+        font-family: "Poppins", sans-serif;
+      }
+
+      /* ===== HERO ===== */
+      .fx-hero {
+        position: relative;
+        min-height: 700px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        background: #03090e;
+        isolation: isolate;
+      }
+
+      /* ===== IMAGE GRID AREA ===== */
+      .fx-image-area {
+        position: absolute;
+        inset: 0 0 0 28%;
+        display: grid;
+        grid-template-columns: repeat(8, 1fr);
+        grid-template-rows: repeat(6, 1fr);
+        gap: 0;
+        z-index: -1;
+        overflow: hidden;
+        perspective: 1600px;
+      }
+
+      /* Each cell is a 3D flip container */
+      .fx-cell {
+        position: relative;
+        min-width: 0;
+        min-height: 0;
+        perspective: 1000px;
+      }
+
+      .fx-cell-inner {
+        position: absolute;
+        inset: 0;
+        transform-style: preserve-3d;
+        transition: transform 0.9s cubic-bezier(0.65, 0, 0.25, 1);
+      }
+
+      .fx-cell.flip-forward .fx-cell-inner {
+        transform: rotateY(180deg);
+      }
+
+      .fx-cell.flip-backward .fx-cell-inner {
+        transform: rotateY(0deg);
+      }
+
+      /* Faces */
+      .fx-face {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        background-repeat: no-repeat;
+        background-size: 800% 600%; /* 8 cols x 6 rows */
+      }
+
+      .fx-face.front {
+        transform: rotateY(0deg);
+      }
+      .fx-face.back {
+        transform: rotateY(180deg);
+      }
+
+      /* Subtle grid lines & depth */
+      .fx-cell::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 3;
+        pointer-events: none;
+        border-right: 1px solid rgba(9, 200, 236, 0.1);
+        border-bottom: 1px solid rgba(9, 200, 236, 0.1);
+        background: linear-gradient(
+          90deg,
+          rgba(0, 0, 0, 0.02),
+          rgba(0, 0, 0, 0.08)
+        );
+      }
+
+      .fx-cell.is-moving::after {
+        box-shadow: inset 0 0 30px rgba(9, 200, 236, 0.25);
+      }
+
+      /* ===== DARK OVERLAY ===== */
+      .fx-overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        background:
+          linear-gradient(
+            90deg,
+            #03090e 0%,
+            #03090e 27%,
+            rgba(3, 9, 14, 0.96) 38%,
+            rgba(3, 9, 14, 0.72) 53%,
+            rgba(3, 9, 14, 0.22) 100%
+          ),
+          linear-gradient(0deg, rgba(3, 9, 14, 0.65), transparent 60%);
+      }
+
+      /* ===== CONTENT ===== */
+      .fx-content {
+        position: relative;
+        z-index: 5;
+        width: 100%;
+        max-width: 1360px;
+        margin: auto;
+        padding: 150px 65px 110px;
+        pointer-events: none;
+      }
+
+      .fx-content-inner {
+        max-width: 760px;
+      }
+
+      .fx-line {
+        width: 65px;
+        height: 4px;
+        background: #09c8ec;
+        margin-bottom: 30px;
+        box-shadow: 0 0 20px rgba(9, 200, 236, 0.4);
+      }
+
+      .fx-heading {
+        font-size: clamp(40px, 4.4vw, 55px);
+        font-weight: 800;
+        line-height: 1.15;
+        letter-spacing: -2px;
+        color: #fff;
+        margin-bottom: 22px;
+      }
+
+      .fx-heading span {
+        display: block;
+        color: #09c8ec;
+      }
+
+      .fx-description {
+        max-width: 650px;
+        font-size: 16px;
+        line-height: 1.85;
+        color: rgba(255, 255, 255, 0.78);
+        margin-bottom: 35px;
+      }
+
+      .fx-actions {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 35px;
+        pointer-events: auto;
+      }
+
+      .fx-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 15px;
+        padding: 16px 28px;
+        background: #09c8ec;
+        color: #031017;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 700;
+        transition: 0.3s ease;
+      }
+
+      .fx-primary:hover {
+        background: #fff;
+        transform: translateY(-3px);
+      }
+
+      .fx-primary i {
+        transition: transform 0.3s;
+      }
+      .fx-primary:hover i {
+        transform: translateX(5px);
+      }
+
+      .fx-secondary {
+        color: #fff;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        padding-bottom: 8px;
+        border-bottom: 2px solid #09c8ec;
+        transition: 0.3s;
+      }
+
+      .fx-secondary:hover {
+        color: #09c8ec;
+      }
+
+      /* ===== RESPONSIVE ===== */
+      @media (max-width: 900px) {
+        .fx-image-area {
+          left: 15%;
+        }
+        .fx-content {
+          padding: 80px 35px;
+        }
+        .fx-heading {
+          font-size: 49px;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .fx-hero {
+          min-height: 750px;
+          align-items: flex-end;
+        }
+        .fx-image-area {
+          inset: 0;
+        }
+        .fx-overlay {
+          background: linear-gradient(
+            180deg,
+            rgba(3, 9, 14, 0.12),
+            rgba(3, 9, 14, 0.55) 38%,
+            #03090e 85%
+          );
+        }
+        .fx-content {
+          padding: 100px 24px 75px;
+        }
+        .fx-heading {
+          font-size: clamp(34px, 9vw, 47px);
+          letter-spacing: -1px;
+        }
+        .fx-description {
+          font-size: 14px;
+        }
+        .fx-actions {
+          gap: 20px;
+        }
+        .fx-primary {
+          padding: 14px 19px;
+          font-size: 12px;
+        }
+        .fx-secondary {
+          font-size: 11px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .fx-cell-inner {
+          transition: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section class="fx-hero">
+      <!-- GRID GENERATED BY JS -->
+      <div class="fx-image-area" id="fxImageArea"></div>
+      <div class="fx-overlay"></div>
+
+      <!-- STATIC CONTENT -->
+      <div class="fx-content">
+        <div class="fx-content-inner">
+          <div class="fx-line"></div>
+          <h1 class="fx-heading">
+            MASTER THE MARKETS.
+            <span>BUILD YOUR KNOWLEDGE.</span>
+          </h1>
+          <p class="fx-description">
+            Develop a deeper understanding of Forex through structured
+            education, practical market knowledge and disciplined trading
+            principles.
+          </p>
+          <div class="fx-actions">
+            <a href="#courses" class="fx-primary">
+              EXPLORE COURSES
+              <i class="fa-solid fa-arrow-right"></i>
+            </a>
+            <a href="#academy" class="fx-secondary"> DISCOVER THE ACADEMY </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      /* =====================================
+     CONFIG — GRID & TIMING
+  ===================================== */
+      const COLS = 8;
+      const ROWS = 6;
+      const TOTAL_CELLS = COLS * ROWS; // 48
+
+      const FLIP_DURATION = 900; // ms per cell
+      const CELL_DELAY = 45; // stagger between cells (diagonal)
+      const IMAGE_PAUSE = 2000; // hold full image
+
+      /* =====================================
+     IMAGES (complete photographs)
+  ===================================== */
+      const images = [
+        "https://images.unsplash.com/photo-1563387852576-964bc31b73af?w=1600&auto=format&fit=crop&q=85",
+        "https://images.unsplash.com/photo-1511300636408-a63a89df3482?w=1600&auto=format&fit=crop&q=85",
+        "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1600&auto=format&fit=crop&q=85",
+      ];
+
+      const imageArea = document.getElementById("fxImageArea");
+
+      let currentImage = 0;
+      let isAnimating = false;
+
+      /* =====================================
+     PRELOAD
+  ===================================== */
+      function preloadImage(url) {
+        return new Promise((resolve, reject) => {
+          const img = new Image();
+          img.onload = () => resolve(url);
+          img.onerror = reject;
+          img.src = url;
+        });
+      }
+
+      /* =====================================
+     BUILD GRID OF FLIP CELLS
+  ===================================== */
+      const cells = [];
+
+      for (let row = 0; row < ROWS; row++) {
+        for (let col = 0; col < COLS; col++) {
+          const cell = document.createElement("div");
+          cell.className = "fx-cell";
+
+          // background-size for one cell = whole image scaled to grid
+          // background-position computed per cell
+          const posX = (col / (COLS - 1)) * 100;
+          const posY = (row / (ROWS - 1)) * 100;
+
+          cell.innerHTML = `
+        <div class="fx-cell-inner">
+          <div class="fx-face front"></div>
+          <div class="fx-face back"></div>
+        </div>
+      `;
+
+          const front = cell.querySelector(".front");
+          const back = cell.querySelector(".back");
+
+          // Full image displayed across grid
+          front.style.backgroundImage = `url("${images[0]}")`;
+          back.style.backgroundImage = `url("${images[1]}")`;
+
+          front.style.backgroundPosition = `${posX}% ${posY}%`;
+          back.style.backgroundPosition = `${posX}% ${posY}%`;
+
+          imageArea.appendChild(cell);
+
+          cells.push({
+            el: cell,
+            front,
+            back,
+            flipped: false,
+            row,
+            col,
+          });
+        }
+      }
+
+      /* =====================================
+     DIAGONAL DELAY (flip in rows & columns)
+     — uses (row + col) to create a wave
+     — also alternates direction per layer
+  ===================================== */
+      function getDelay(row, col) {
+        // diagonal wave from top-left to bottom-right
+        // plus a small column bias so rows and columns both feel active
+        return (
+          (row * COLS + col) * CELL_DELAY * 0.35 +
+          Math.abs(row - col) * CELL_DELAY * 0.25
+        );
+      }
+
+      /* =====================================
+     CHANGE IMAGE — diagonal cell-by-cell
+  ===================================== */
+      async function changeImage() {
+        if (isAnimating) return;
+        isAnimating = true;
+
+        const nextIndex = (currentImage + 1) % images.length;
+        const nextImage = images[nextIndex];
+
+        try {
+          // Preload full next image
+          await preloadImage(nextImage);
+
+          // Flip every cell with a diagonal stagger
+          const flipPromises = cells.map((cell) => {
+            return new Promise((resolve) => {
+              const delay = getDelay(cell.row, cell.col);
+
+              setTimeout(() => {
+                const hiddenFace = cell.flipped ? cell.front : cell.back;
+                hiddenFace.style.backgroundImage = `url("${nextImage}")`;
+
+                cell.el.classList.add("is-moving");
+                cell.el.classList.toggle("flip-forward", !cell.flipped);
+                cell.el.classList.toggle("flip-backward", cell.flipped);
+
+                setTimeout(() => {
+                  cell.flipped = !cell.flipped;
+                  cell.el.classList.remove("is-moving");
+                  resolve();
+                }, FLIP_DURATION);
+              }, delay);
+            });
+          });
+
+          await Promise.all(flipPromises);
+          currentImage = nextIndex;
+        } catch (err) {
+          console.error("Image transition error:", err);
+        }
+
+        isAnimating = false;
+      }
+
+      /* =====================================
+     SLIDESHOW LOOP
+  ===================================== */
+      async function startSlideshow() {
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches)
+          return;
+
+        try {
+          await Promise.all(images.map(preloadImage));
+
+          while (true) {
+            await new Promise((r) => setTimeout(r, IMAGE_PAUSE));
+            await changeImage();
+          }
+        } catch (err) {
+          console.error("Could not load slideshow images", err);
+        }
+      }
+
+      startSlideshow();
+    </script>
+  </body>
+</html>
+
+<!-- ---- stats--  -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Impact statistics · animated counters</title>
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <style>
+      /* =========================================
+       IMPACT STATISTICS
+    ========================================= */
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      .impact-stats {
+        width: 100%;
+        padding: 12px 100px;
+        font-family: "Poppins", sans-serif;
+        box-sizing: border-box;
+      }
+
+      .impact-stats * {
+        box-sizing: border-box;
+      }
+
+      .impact-stats-inner {
+        position: relative;
+        width: 100%;
+        min-height: 120px;
+        padding: 9px 80px;
+        display: grid;
+        grid-template-columns: 1fr 1px 1fr 1px 1fr 1px 1.35fr;
+        align-items: center;
+        gap: 0;
+        overflow: hidden;
+        isolation: isolate;
+        background: linear-gradient(
+          115deg,
+          #064b60 0%,
+          #032c40 35%,
+          #031f32 70%,
+          #03465b 100%
+        );
+        border-radius: 26px;
+        box-shadow:
+          0 15px 35px rgba(0, 137, 170, 0.13),
+          inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      }
+
+      /* Decorative waves */
+
+      .impact-stats-inner::before,
+      .impact-stats-inner::after {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        pointer-events: none;
+        width: 230px;
+        height: 85px;
+        border-radius: 50%;
+        opacity: 0.4;
+      }
+
+      .impact-stats-inner::before {
+        left: -90px;
+        bottom: -48px;
+        background: #008eaa;
+        box-shadow: 0 -17px 0 rgba(0, 196, 216, 0.3);
+        transform: rotate(15deg);
+      }
+
+      .impact-stats-inner::after {
+        right: -90px;
+        bottom: -48px;
+        background: #008eaa;
+        box-shadow: 0 -17px 0 rgba(0, 196, 216, 0.3);
+        transform: rotate(-15deg);
+      }
+
+      /* Individual statistics */
+
+      .impact-stat {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        min-width: 0;
+        padding: 5px 12px;
+        position: relative;
+      }
+
+      .impact-icon {
+        flex-shrink: 0;
+        width: 53px;
+        height: 58px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #09d4ed;
+        font-size: 40px;
+      }
+
+      .impact-content {
+        min-width: 0;
+      }
+
+      .impact-number {
+        margin: 0 0 4px;
+        color: #ffffff;
+        font-size: 37px;
+        line-height: 1.1;
+        font-weight: 750;
+        letter-spacing: -1.5px;
+        white-space: nowrap;
+      }
+
+      .impact-number span {
+        color: #09d4ed;
+        margin-left: 2px;
+      }
+
+      .impact-content p {
+        margin: 0;
+        color: rgba(255, 255, 255, 0.94);
+        font-size: 15px;
+        line-height: 1.4;
+        font-weight: 400;
+        white-space: nowrap;
+      }
+
+      .impact-content p strong {
+        display: inline-block;
+        color: #13d4eb;
+        border-radius: 20px;
+        font-weight: 700;
+      }
+
+      /* Separators */
+
+      .impact-divider {
+        width: 1px;
+        height: 75px;
+        background: linear-gradient(
+          to bottom,
+          transparent,
+          rgba(255, 255, 255, 0.8) 20%,
+          rgba(255, 255, 255, 0.8) 80%,
+          transparent
+        );
+      }
+
+      /* =========================================
+       TABLET
+    ========================================= */
+
+      @media (max-width: 1100px) {
+        .impact-stats-inner {
+          grid-template-columns: 1fr 1px 1fr;
+          padding: 25px 20px;
+          row-gap: 22px;
+        }
+
+        .impact-divider:nth-of-type(4) {
+          display: none;
+        }
+
+        .impact-stat {
+          padding: 10px;
+          gap: 15px;
+        }
+
+        .impact-stat-session {
+          grid-column: 1 / -1;
+        }
+
+        .impact-stat-session .impact-content {
+          text-align: left;
+        }
+
+        .impact-icon {
+          width: 48px;
+          height: 48px;
+          font-size: 35px;
+        }
+
+        .impact-number {
+          font-size: 38px;
+        }
+
+        .impact-content p {
+          font-size: 13px;
+        }
+      }
+
+      /* =========================================
+       MOBILE
+    ========================================= */
+
+      @media (max-width: 600px) {
+        .impact-stats {
+          padding: 10px 0;
+        }
+
+        .impact-stats-inner {
+          grid-template-columns: 1fr 1fr;
+          padding: 22px 12px;
+          border-radius: 18px;
+          row-gap: 12px;
+        }
+
+        .impact-stat {
+          flex-direction: column;
+          text-align: center;
+          gap: 5px;
+          padding: 12px 5px;
+        }
+
+        .impact-divider {
+          display: none;
+        }
+
+        .impact-icon {
+          width: 38px;
+          height: 38px;
+          font-size: 29px;
+          margin-bottom: 5px;
+        }
+
+        .impact-number {
+          font-size: 32px;
+          margin-bottom: 5px;
+        }
+
+        .impact-content p {
+          font-size: 11px;
+          line-height: 1.7;
+          white-space: normal;
+        }
+
+        .impact-stat-session {
+          grid-column: 1 / -1;
+          flex-direction: row;
+          justify-content: center;
+          gap: 12px;
+          padding-top: 17px;
+          border-top: 1px solid rgba(255, 255, 255, 0.16);
+        }
+
+        .impact-stat-session .impact-content {
+          text-align: left;
+        }
+
+        .impact-stat-session .impact-icon {
+          font-size: 32px;
+        }
+      }
+
+      @media (max-width: 360px) {
+        .impact-number {
+          font-size: 27px;
+        }
+
+        .impact-content p {
+          font-size: 10px;
+        }
+
+        .impact-stat {
+          padding-left: 2px;
+          padding-right: 2px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section class="impact-stats">
+      <div class="impact-stats-inner">
+        <!-- Stat 1 -->
+        <div class="impact-stat">
+          <div class="impact-icon">
+            <i class="fa-solid fa-users"></i>
+          </div>
+          <div class="impact-content">
+            <h2 class="impact-number" data-target="580">0<span>+</span></h2>
+            <p>Active Students</p>
+          </div>
+        </div>
+
+        <div class="impact-divider"></div>
+
+        <!-- Stat 2 -->
+        <div class="impact-stat">
+          <div class="impact-icon">
+            <i class="fa-solid fa-layer-group"></i>
+          </div>
+          <div class="impact-content">
+            <h2 class="impact-number" data-target="12">0<span>+</span></h2>
+            <p>Faculty Courses</p>
+          </div>
+        </div>
+
+        <div class="impact-divider"></div>
+
+        <!-- Stat 3 -->
+        <div class="impact-stat">
+          <div class="impact-icon">
+            <i class="fa-solid fa-graduation-cap"></i>
+          </div>
+          <div class="impact-content">
+            <h2 class="impact-number" data-target="2123">0<span>+</span></h2>
+            <p>Successful Students</p>
+          </div>
+        </div>
+
+        <div class="impact-divider"></div>
+
+        <!-- Stat 4 -->
+        <div class="impact-stat impact-stat-session">
+          <div class="impact-icon">
+            <i class="fa-regular fa-calendar-days"></i>
+          </div>
+          <div class="impact-content">
+            <h2 class="impact-number" data-target="115">0<span>+</span></h2>
+            <p>
+              Joining the Next Live Session
+              <br />
+              on <strong>23rd September</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      /* =========================================
+       ANIMATED NUMBER COUNTER
+    ========================================= */
+
+      (function () {
+        const statsSection = document.querySelector(".impact-stats");
+
+        if (!statsSection) return;
+
+        const counters = statsSection.querySelectorAll(".impact-number");
+
+        let hasCounted = false;
+
+        function startCounting() {
+          if (hasCounted) return;
+
+          hasCounted = true;
+
+          counters.forEach((counter) => {
+            const target = parseInt(counter.dataset.target, 10);
+            const duration = 1800;
+            const startTime = performance.now();
+
+            function updateCounter(currentTime) {
+              const progress = Math.min(
+                (currentTime - startTime) / duration,
+                1,
+              );
+
+              const easedProgress = 1 - Math.pow(1 - progress, 4);
+
+              const currentValue = Math.floor(easedProgress * target);
+
+              counter.innerHTML =
+                currentValue.toLocaleString("en-IN") + "<span>+</span>";
+
+              if (progress < 1) {
+                requestAnimationFrame(updateCounter);
+              } else {
+                counter.innerHTML =
+                  target.toLocaleString("en-IN") + "<span>+</span>";
+              }
+            }
+
+            requestAnimationFrame(updateCounter);
+          });
+        }
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                startCounting();
+                observer.disconnect();
+              }
+            });
+          },
+          {
+            threshold: 0.3,
+          },
+        );
+
+        observer.observe(statsSection);
+      })();
+    </script>
+  </body>
+</html>
+
+<!-- --- About ----  -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rajesh Academy — Master The Markets</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      .masterclass-section {
+        width: 100%;
+        background: #ffffff;
+        overflow: hidden;
+        font-family: "Poppins", sans-serif;
+        padding: 55px 0 60px;
+      }
+
+      .masterclass-container {
+        width: 100%;
+        max-width: 1150px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: grid;
+        grid-template-columns: 1.05fr 1fr;
+        align-items: center;
+        gap: 55px;
+      }
+
+      /* LEFT IMAGE SECTION */
+
+      .masterclass-visual {
+        position: relative;
+        width: 100%;
+        height: 630px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .masterclass-image {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: fill;
+        object-position: center;
+        display: block;
+      }
+
+      /* RIGHT CONTENT */
+
+      .masterclass-content {
+        width: 100%;
+        max-width: 750px;
+        padding: 0 5px;
+      }
+
+      .masterclass-subtitle {
+        display: block;
+        color: #ff781c;
+        font-size: 21px;
+        font-weight: 400;
+        line-height: 1.5;
+        margin-bottom: 17px;
+      }
+
+      .masterclass-title {
+        font-size: clamp(30px, 3.35vw, 40px);
+        line-height: 1.19;
+        font-weight: 700;
+        letter-spacing: -1.8px;
+        color: #1c1d27;
+        margin-bottom: 30px;
+      }
+
+      .masterclass-description {
+        font-size: 17px;
+        font-weight: 400;
+        line-height: 1.9;
+        color: #777b87;
+        margin-bottom: 26px;
+      }
+
+      .masterclass-features {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 38px;
+        list-style: none;
+      }
+
+      .masterclass-features li {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        font-size: 16px;
+        line-height: 1.4;
+        font-weight: 400;
+        color: #777b87;
+        padding: 0 8px;
+      }
+
+      .masterclass-features li i {
+        flex-shrink: 0;
+        color: #ff781c;
+        font-size: 20px;
+      }
+
+      .masterclass-features li span strong {
+        color: #1c1d27;
+        font-weight: 600;
+      }
+
+      /* BUTTON */
+
+      .masterclass-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 290px;
+        min-height: 55px;
+        padding: 12px 30px;
+        background: #000d4c;
+        border: 1px solid #000d4c;
+        border-radius: 12px;
+        color: #ffffff;
+        font-family: "Poppins", sans-serif;
+        font-size: 17px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        margin-left: 12px;
+      }
+
+      .masterclass-btn:hover {
+        background: #001a7a;
+        border-color: #001a7a;
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(0, 13, 76, 0.25);
+      }
+
+      /* RESPONSIVE */
+
+      @media (max-width: 1200px) {
+        .masterclass-container {
+          gap: 30px;
+        }
+
+        .masterclass-visual {
+          height: 570px;
+        }
+
+        .masterclass-title {
+          font-size: 43px;
+          letter-spacing: -1px;
+          margin-bottom: 30px;
+        }
+
+        .masterclass-description {
+          font-size: 16px;
+          line-height: 1.8;
+          margin-bottom: 30px;
+        }
+
+        .masterclass-features li {
+          font-size: 15px;
+          gap: 16px;
+        }
+
+        .masterclass-features {
+          gap: 14px;
+          margin-bottom: 32px;
+        }
+      }
+
+      @media (max-width: 991px) {
+        .masterclass-section {
+          padding: 45px 0;
+        }
+
+        .masterclass-container {
+          grid-template-columns: 1fr;
+          gap: 35px;
+        }
+
+        .masterclass-visual {
+          max-width: 750px;
+          height: 570px;
+          margin: 0 auto;
+        }
+
+        .masterclass-content {
+          max-width: 750px;
+          margin: 0 auto;
+        }
+
+        .masterclass-title {
+          font-size: 46px;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .masterclass-section {
+          padding: 25px 0 45px;
+        }
+
+        .masterclass-container {
+          padding: 0 23px;
+          gap: 25px;
+        }
+
+        .masterclass-visual {
+          height: auto;
+          aspect-ratio: 1 / 0.95;
+        }
+
+        .masterclass-subtitle {
+          font-size: 16px;
+          margin-bottom: 10px;
+        }
+
+        .masterclass-title {
+          font-size: 34px;
+          line-height: 1.25;
+          letter-spacing: -0.8px;
+          margin-bottom: 22px;
+        }
+
+        .masterclass-description {
+          font-size: 15px;
+          line-height: 1.8;
+          margin-bottom: 25px;
+        }
+
+        .masterclass-features {
+          gap: 13px;
+          margin-bottom: 30px;
+        }
+
+        .masterclass-features li {
+          font-size: 14px;
+          gap: 12px;
+          align-items: flex-start;
+        }
+
+        .masterclass-features li i {
+          font-size: 17px;
+          margin-top: 3px;
+        }
+
+        .masterclass-btn {
+          min-width: 220px;
+          min-height: 57px;
+          padding: 15px 22px;
+          font-size: 14px;
+          border-radius: 9px;
+        }
+      }
+
+      @media (max-width: 380px) {
+        .masterclass-title {
+          font-size: 29px;
+        }
+
+        .masterclass-description {
+          font-size: 14px;
+        }
+
+        .masterclass-visual {
+          aspect-ratio: 1 / 1;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <section class="masterclass-section">
+      <div class="masterclass-container">
+        <!-- LEFT VISUAL -->
+        <div class="masterclass-visual">
+          <img
+            src="https://images.unsplash.com/photo-1455849318743-b2233052fcff?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D"
+            alt="Forex trading application displayed on smartphones"
+            class="masterclass-image"
+          />
+        </div>
+
+        <!-- RIGHT CONTENT -->
+        <div class="masterclass-content">
+          <span class="masterclass-subtitle"> Learn To Trade Like A Pro. </span>
+
+          <h1 class="masterclass-title">About Rajesh Academy</h1>
+
+          <p class="masterclass-description">
+            Founded by <strong>Rajesh Sir</strong>, Rajesh Academy is dedicated
+            to making financial market education simple, practical, and
+            accessible to everyone. We help beginners and experienced traders
+            develop the knowledge, skills, and confidence to trade with
+            consistency through real-market learning and expert mentorship.
+          </p>
+
+          <ul class="masterclass-features">
+            <li>
+              <i class="fa-regular fa-circle-check"></i>
+              <span
+                ><strong>Expert Mentorship</strong> – Learn directly from Rajesh
+                Sir.</span
+              >
+            </li>
+
+            <li>
+              <i class="fa-regular fa-circle-check"></i>
+              <span
+                ><strong>Practical Learning</strong> – Real-market strategies
+                and live sessions.</span
+              >
+            </li>
+
+            <li>
+              <i class="fa-regular fa-circle-check"></i>
+              <span
+                ><strong>Multiple Courses</strong> – Forex, SMC, Options,
+                Crypto, Commodities &amp; Algo Trading.</span
+              >
+            </li>
+
+            <li>
+              <i class="fa-regular fa-circle-check"></i>
+              <span
+                ><strong>Lifetime Access</strong> – Learn at your own
+                pace.</span
+              >
+            </li>
+
+            <li>
+              <i class="fa-regular fa-circle-check"></i>
+              <span
+                ><strong>Personal Support</strong> – Guidance throughout your
+                learning journey.</span
+              >
+            </li>
+
+            <li>
+              <i class="fa-regular fa-circle-check"></i>
+              <span
+                ><strong>Flexible Learning</strong> – Live interactive classes
+                and discounted recordings.</span
+              >
+            </li>
+          </ul>
+
+          <a href="#courses" class="masterclass-btn"> EXPLORE OUR COURSES </a>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const courseButton = document.querySelector(".masterclass-btn");
+
+        if (courseButton) {
+          courseButton.addEventListener("click", function (e) {
+            const target = document.querySelector("#courses");
+
+            if (target) {
+              e.preventDefault();
+
+              target.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+              });
+            }
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
+
+<!-- ----- course ----  -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Explore Courses · Rajesh Academy</title>
+
+    <!-- fonts & icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+
+    <style>
+      /* ----- reset & base ----- */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          "Inter",
+          system-ui,
+          -apple-system,
+          sans-serif;
+        background: #ffffff;
+        color: #171923;
+        line-height: 1.5;
+      }
+
+      /* ----- main section ----- */
+      .courses-section {
+        width: 100%;
+        padding: 4.5rem 1.25rem 5rem;
+        background: #ffffff;
+      }
+
+      .courses-container {
+        max-width: 1150px;
+        width: 100%;
+        margin: 0 auto;
+      }
+
+      /* ----- heading ----- */
+      .courses-heading {
+        text-align: center;
+        margin-bottom: 2.75rem;
+      }
+
+      .courses-eyebrow {
+        display: block;
+        color: #ff781c;
+        font-size: 0.9rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        margin-bottom: 0.25rem;
+      }
+
+      .courses-title {
+        font-size: 2.6rem;
+        font-weight: 700;
+        line-height: 1.25;
+        letter-spacing: -0.02em;
+        color: #171923;
+      }
+
+      /* ----- grid ----- */
+      .courses-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        column-gap: 1.5rem;
+        row-gap: 2.75rem;
+      }
+
+      /* ----- card ----- */
+      .course-card {
+        position: relative;
+        overflow: visible;
+        min-width: 0;
+        background: #fcfcfd;
+        border: 1px solid #e2e5ea;
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        transition:
+          box-shadow 0.25s ease,
+          transform 0.25s ease,
+          border-color 0.25s ease;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+      }
+
+      .course-card:hover {
+        box-shadow: 0 20px 32px -8px rgba(0, 0, 0, 0.12);
+        transform: translateY(-4px);
+        border-color: #d0d5dd;
+        z-index: 100;
+      }
+
+      /* ----- image ----- */
+      .course-image-wrapper {
+        position: relative;
+        width: 100%;
+        height: 170px;
+        overflow: hidden;
+        background: #f1f3f7;
+        border-radius: 8px 8px 0 0;
+      }
+
+      .course-image {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+      }
+
+      .course-card:hover .course-image {
+        transform: scale(1.04);
+      }
+
+      /* ----- badges ----- */
+      .course-badge {
+        position: absolute;
+        top: 0.85rem;
+        right: 0.85rem;
+        padding: 0.3rem 0.9rem;
+        color: #ffffff;
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+        border-radius: 8px;
+        text-transform: uppercase;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      }
+
+      .course-badge.new {
+        background: #16bd85;
+      }
+
+      .course-badge.special {
+        background: #f5a623;
+      }
+
+      /* ----- card content ----- */
+      .course-content {
+        padding: 1.3rem 1.3rem 1.1rem;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+      }
+
+      .course-category {
+        color: #8a8d96;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+        margin-bottom: 0.65rem;
+      }
+
+      .course-name {
+        color: #0f1522;
+        font-size: 1.05rem;
+        font-weight: 600;
+        line-height: 1.45;
+        min-height: 3.3rem;
+        margin-bottom: 1rem;
+      }
+
+      .course-divider {
+        width: 100%;
+        height: 1px;
+        background: #edf0f4;
+        margin-bottom: 1rem;
+      }
+
+      /* ----- card footer ----- */
+      .course-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        margin-top: auto;
+        min-height: 2.2rem;
+      }
+
+      .course-duration {
+        display: flex;
+        align-items: center;
+        gap: 0.45rem;
+        color: #6b7280;
+        font-size: 0.8rem;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+
+      .course-duration i {
+        font-size: 0.8rem;
+        color: #5f6b7a;
+      }
+
+      .course-pricing {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: center;
+        gap: 0.1rem;
+      }
+
+      .course-price {
+        font-size: 1.15rem;
+        color: #1f2937;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+
+      /* ----- floating popup (clean & compact) ----- */
+      .course-hover-info {
+        position: absolute;
+        width: 380px;
+        max-width: min(375px, 88vw);
+        top: 50%;
+        left: 50%;
+        z-index: 110;
+
+        background: #ffffff;
+        padding: 1.5rem 1.6rem 1.4rem;
+        border: 1px solid #eef1f5;
+        border-radius: 8px;
+
+        box-shadow:
+          0 24px 48px -12px rgba(0, 0, 0, 0.25),
+          0 4px 12px rgba(0, 0, 0, 0.05);
+
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+
+        transform: translate(-50%, -48%) scale(0.97);
+        transition:
+          opacity 0.2s ease,
+          transform 0.2s ease,
+          visibility 0.2s ease;
+      }
+
+      .course-card:hover .course-hover-info,
+      .course-card:focus-within .course-hover-info {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translate(-50%, -50%) scale(1);
+      }
+
+      /* ----- brand ----- */
+      .hover-academy {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.7rem;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #4d5868;
+      }
+
+      .hover-academy i {
+        color: #ff781c;
+        font-size: 1.1rem;
+      }
+
+      /* ----- popup title ----- */
+      .course-hover-info h3 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        line-height: 1.4;
+        color: #171923;
+        margin-bottom: 0.9rem;
+      }
+
+      /* ----- popup description ----- */
+      .course-hover-info p {
+        font-size: 0.8rem;
+        line-height: 1.6;
+        color: #636f7e;
+        margin-bottom: 1rem;
+
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      /* ----- popup meta row ----- */
+      .course-hover-details {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.65rem 1.2rem;
+        margin-bottom: 1.4rem;
+      }
+
+      .course-hover-detail {
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+        white-space: nowrap;
+      }
+
+      .course-hover-detail i {
+        color: #3b4a5e;
+        font-size: 0.85rem;
+      }
+
+      .course-hover-detail span {
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: #3b4a5e;
+      }
+
+      /* ----- preview button ----- */
+      .course-preview-btn {
+        width: 100%;
+        min-height: 2.8rem;
+        border: none;
+        background: #ff781c;
+        color: #ffffff;
+        border-radius: 8px;
+
+        font-family: inherit;
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        cursor: pointer;
+
+        transition:
+          background 0.2s ease,
+          transform 0.1s ease;
+        box-shadow: 0 4px 10px rgba(255, 120, 28, 0.2);
+      }
+
+      .course-preview-btn:hover {
+        background: #e9670c;
+      }
+
+      .course-preview-btn:active {
+        transform: scale(0.98);
+      }
+
+      /* ----- popup bottom row ----- */
+      .course-hover-bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        margin-top: 1.1rem;
+      }
+
+      .hover-wishlist {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        color: #848d9c;
+        font-size: 0.75rem;
+        font-weight: 500;
+      }
+
+      .hover-wishlist i {
+        font-size: 0.9rem;
+        color: #ff781c;
+      }
+
+      .hover-price {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #1f2a3a;
+        white-space: nowrap;
+      }
+
+      .hover-old-price {
+        color: #a5a5a5;
+        font-size: 0.75rem;
+        text-decoration: line-through;
+        margin-right: 0.3rem;
+      }
+
+      /* ----- responsive ----- */
+      @media (max-width: 900px) {
+        .courses-container {
+          max-width: 700px;
+        }
+
+        .courses-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          row-gap: 2rem;
+        }
+
+        .courses-title {
+          font-size: 2.1rem;
+        }
+
+        .course-hover-info {
+          width: 340px;
+          padding: 1.3rem 1.3rem 1.2rem;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .course-hover-info {
+          width: 300px;
+          padding: 1.2rem 1.1rem 1.1rem;
+        }
+
+        .course-hover-info h3 {
+          font-size: 0.95rem;
+        }
+
+        .course-hover-info p {
+          font-size: 0.75rem;
+          -webkit-line-clamp: 3;
+        }
+
+        .course-hover-details {
+          gap: 0.5rem 1rem;
+          margin-bottom: 1.1rem;
+        }
+
+        .course-preview-btn {
+          min-height: 2.5rem;
+          font-size: 0.75rem;
+        }
+      }
+
+      @media (max-width: 560px) {
+        .courses-section {
+          padding: 2rem 1rem 3rem;
+        }
+
+        .courses-heading {
+          margin-bottom: 2rem;
+        }
+
+        .courses-eyebrow {
+          font-size: 0.75rem;
+        }
+
+        .courses-title {
+          font-size: 1.8rem;
+        }
+
+        .courses-grid {
+          grid-template-columns: 1fr;
+          gap: 1.75rem;
+          max-width: 400px;
+          margin: 0 auto;
+        }
+
+        .course-image-wrapper {
+          height: 190px;
+        }
+
+        .course-content {
+          padding: 1.1rem 1.1rem 1rem;
+        }
+
+        .course-name {
+          font-size: 1rem;
+          min-height: auto;
+        }
+
+        .course-price {
+          font-size: 1.05rem;
+        }
+      }
+
+      @media (min-width: 561px) and (max-width: 700px) {
+        .course-image-wrapper {
+          height: 140px;
+        }
+
+        .course-content {
+          padding: 1rem 1rem 0.9rem;
+        }
+
+        .course-name {
+          font-size: 0.9rem;
+          min-height: 2.8rem;
+        }
+
+        .course-price {
+          font-size: 1rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <section class="courses-section" id="courses">
+      <div class="courses-container">
+        <!-- heading -->
+        <div class="courses-heading">
+          <span class="courses-eyebrow"> Checkout New List </span>
+          <h2 class="courses-title">Explore Courses</h2>
+        </div>
+
+        <!-- course grid -->
+        <div class="courses-grid" id="coursesGrid"></div>
+      </div>
+    </section>
+
+    <script>
+      /* ----- course data (refined details) ----- */
+      const courses = [
+        {
+          image:
+            "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?w=700&h=400&fit=crop",
+          category: "Technical Analysis + SMC",
+          title: "Complete Technical Analysis + SMC (Online Interactive)",
+          duration: "Live",
+          courseDuration: "4 Weeks",
+          schedule: "Sat & Sun",
+          time: "3 PM – 5 PM",
+          mode: "Online Interactive",
+          description:
+            "Master institutional trading with price action, smart money concepts, and hedging. Identify market structure, liquidity traps, and trend shifts with precision to boost profitability and reduce risk.",
+          previewUrl: "",
+          oldPrice: "",
+          price: "₹5,000",
+          badge: "SPECIAL",
+          badgeType: "special",
+        },
+        {
+          image:
+            "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=700&h=400&fit=crop",
+          category: "Options Trading",
+          title:
+            "Options Trading & Unique Hedging Strategies (Online Interactive)",
+          duration: "Live",
+          courseDuration: "4 Weeks",
+          schedule: "Sat & Sun",
+          time: "5 PM – 7 PM",
+          mode: "Online Interactive",
+          description:
+            "This course is tailored for traders who want to master options trading from the ground up. Whether you’re a beginner or already trading options, you will gain deep insights into strategy building, adjustments, and execution. The highlight of this course is learning high-probability strategies with minimal or zero risk, suitable for any market condition.",
+          previewUrl: "",
+          oldPrice: "",
+          price: "₹5,000",
+          badge: "",
+          badgeType: "",
+        },
+        {
+          image:
+            "https://images.unsplash.com/photo-1518546305927-5a555bb7020d?w=700&h=400&fit=crop",
+          category: "Crypto & Commodities",
+          title: "Crypto & Commodities Trading (Online Interactive)",
+          duration: "Live",
+          courseDuration: "4 Weeks",
+          schedule: "Sat & Sun",
+          time: "7 PM – 9 PM",
+          mode: "Online Interactive",
+          description:
+            "This unique course focuses on building a strong foundation for crypto and commodity trading. You will learn how to use a combination of price action, technical indicators, and risk-free strategies that are tailor-made for volatile markets. Whether you’re interested in trading Bitcoin, Ethereum, Gold, or Silver, this course gives you structured guidance and proven methods.",
+          previewUrl: "",
+          oldPrice: "",
+          price: "₹5,000",
+          badge: "",
+          badgeType: "",
+        },
+        {
+          image:
+            "https://images.unsplash.com/photo-1642104704074-907c0698cbd9?w=700&h=400&fit=crop",
+          category: "Crypto & Commodities",
+          title: "Crypto & Commodities Trading (Class Recordings)",
+          duration: "Recorded",
+          courseDuration: "08 videos, 16 Hours",
+          schedule: "No schedule, can join at any time",
+          time: "Study at your own time",
+          mode: "Recorded Videos",
+          description:
+            "Content same as interactive classes. It is recordings of interactive classes as it is.",
+          previewUrl: "",
+          oldPrice: "",
+          price: "₹3,000",
+          badge: "",
+          badgeType: "",
+        },
+        {
+          image:
+            "https://images.unsplash.com/photo-1535320903710-d993d3d77d29?w=700&h=400&fit=crop",
+          category: "Options Trading",
+          title:
+            "Options Trading & Unique Hedging Strategies (Class Recordings)",
+          duration: "Recorded",
+          courseDuration: "08 videos, 16 Hours",
+          schedule: "No schedule, can join at any time",
+          time: "Study at your own time",
+          mode: "Recorded Videos",
+          description:
+            "Content same as interactive classes. It is recordings of interactive classes as it is.",
+          previewUrl: "",
+          oldPrice: "",
+          price: "₹3,000",
+          badge: "",
+          badgeType: "",
+        },
+        {
+          image:
+            "https://images.unsplash.com/photo-1543286386-713bdd548da4?w=700&h=400&fit=crop",
+          category: "Price Action + SMC",
+          title: "Price Action + Smart Money Concepts (Class Recordings)",
+          duration: "Recorded",
+          courseDuration: "08 videos, 16 Hours",
+          schedule: "No schedule, can join at any time",
+          time: "Study at your own time",
+          mode: "Recorded Videos",
+          description:
+            "Content same as interactive classes. It is recordings of interactive classes as it is.",
+          previewUrl: "",
+          oldPrice: "",
+          price: "₹3,000",
+          badge: "",
+          badgeType: "",
+        },
+        {
+          image:
+            "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=700&h=400&fit=crop",
+          category: "Algo Trading",
+          title: "Python Based Algo Trading setup",
+          duration: "Live",
+          courseDuration: "4 Weeks",
+          schedule: "Sat & Sun",
+          time: "8 PM to 10 PM",
+          mode: "Online Interactive",
+          description:
+            "Build automated trading systems with Python. Covers API integration, backtesting, live trading setup, and risk management.",
+          previewUrl: "",
+          oldPrice: "",
+          price: "₹5,000",
+          badge: "",
+          badgeType: "",
+        },
+      ];
+
+      /* ----- render cards ----- */
+      const coursesGrid = document.getElementById("coursesGrid");
+
+      coursesGrid.innerHTML = courses
+        .map(
+          (course) => `
+        <article class="course-card" tabindex="0">
+          <div class="course-image-wrapper">
+            <img src="${course.image}" alt="${course.title}" class="course-image" loading="lazy">
+            ${
+              course.badge
+                ? `<span class="course-badge ${course.badgeType}">${course.badge}</span>`
+                : ""
+            }
+          </div>
+
+          <div class="course-content">
+            <span class="course-category">${course.category}</span>
+            <h3 class="course-name">${course.title}</h3>
+            <div class="course-divider"></div>
+            <div class="course-footer">
+              <div class="course-duration">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <span>${course.duration || "Course"}</span>
+              </div>
+              <div class="course-pricing">
+                <span class="course-price">${course.price}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- floating popup -->
+          <div class="course-hover-info">
+            <div class="hover-academy">
+              <i class="fa-solid fa-graduation-cap"></i>
+              <span>Rajesh Academy</span>
+            </div>
+
+            <h3>${course.title}</h3>
+
+            <p>${course.description || "Explore this course to develop your trading knowledge through structured learning and practical market insights."}</p>
+
+            <div class="course-hover-details">
+              <div class="course-hover-detail">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <span>${course.courseDuration || "—"}</span>
+              </div>
+              <div class="course-hover-detail">
+                <i class="fa-solid fa-calendar-days"></i>
+                <span>${course.schedule || "—"}</span>
+              </div>
+              <div class="course-hover-detail">
+                <i class="fa-regular fa-hourglass-half"></i>
+                <span>${course.time || "—"}</span>
+              </div>
+              <div class="course-hover-detail">
+                <i class="fa-solid fa-laptop"></i>
+                <span>${course.mode || "—"}</span>
+              </div>
+            </div>
+
+            <button class="course-preview-btn" type="button" data-preview="${course.previewUrl || ""}">
+              PREVIEW THIS COURSE
+            </button>
+
+            <div class="course-hover-bottom">
+              <div class="hover-wishlist">
+                <i class="fa-regular fa-circle-play"></i>
+                <span>${course.mode || "Course"}</span>
+              </div>
+              <div class="hover-price">
+                ${course.oldPrice ? `<span class="hover-old-price">${course.oldPrice}</span>` : ""}
+                ${course.price}
+              </div>
+            </div>
+          </div>
+        </article>
+      `,
+        )
+        .join("");
+
+      /* ----- preview button handler ----- */
+      document.querySelectorAll(".course-preview-btn").forEach((btn) => {
+        btn.addEventListener("click", function (e) {
+          e.stopPropagation(); // prevent card click if needed
+          const previewUrl = this.dataset.preview;
+          if (previewUrl) {
+            window.open(previewUrl, "_blank");
+          } else {
+            alert("Course preview will be available soon!");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
+
+<!-- --- why chose us ---- -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Why Choose Us · Rajesh Academy (light theme)</title>
+
+    <!-- Google Fonts + Font Awesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+
+    <style>
+      /* ============================================
+       LIGHT THEME — MATCHING THE SCREENSHOT
+       - Deep navy headings
+       - Orange uppercase labels
+       - Greyish-blue body text
+       - Clean white cards on soft background
+    ============================================ */
+      .f-features-section {
+        width: 100%;
+        background: #ffffff; /* clean white background matching screenshot */
+        padding: 55px 7% 90px;
+        font-family: "Poppins", sans-serif;
+        color: #1e2b3c;
+        overflow: hidden;
+      }
+
+      /* SECTION HEADER */
+      .f-features-header {
+        text-align: center;
+        max-width: 760px;
+        margin: 0 auto 50px;
+      }
+
+      .f-features-tag {
+        display: inline-block;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: #ff781c; /* orange accent matching screenshot */
+        background: rgba(255, 120, 28, 0.08);
+        padding: 6px 16px;
+        border-radius: 40px;
+        margin-bottom: 18px;
+        border: 1px solid rgba(255, 120, 28, 0.2);
+      }
+
+      .f-features-header h2 {
+        font-size: 38px;
+        line-height: 1.3;
+        font-weight: 700;
+        letter-spacing: -0.8px;
+        color: #00183c;
+        margin-bottom: 18px;
+      }
+
+      .f-features-header p {
+        font-size: 16px;
+        line-height: 1.8;
+        font-weight: 300;
+        color: #5a6f85; /* grey-blue body text */
+        max-width: 560px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      /* FEATURES GRID */
+      .f-features-grid {
+        max-width: 1200px;
+        margin: auto;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 22px;
+      }
+
+      /* FEATURE CARD — light, clean, subtle depth */
+      .f-feature-card {
+        position: relative;
+        min-height: 186px;
+        padding: 25px 26px 25px;
+        background: #fffcfa6e;
+        border: 1px solid #ffd8b4;
+        border-radius: 16px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transition: all 0.3s ease;
+        overflow: hidden;
+        box-shadow:
+          0 4px 14px rgb(0 0 0 / 12%),
+          0 1px 3px rgb(0 0 0 / 48%);
+      }
+
+      .f-feature-card:hover {
+        transform: translateY(-5px);
+        border-color: #ff781c;
+        background: #ffffff;
+        box-shadow:
+          0 18px 36px -12px rgba(255, 120, 28, 0.18),
+          0 6px 18px rgba(0, 0, 0, 0.05);
+      }
+
+      /* ICON — deep navy, turns orange on hover */
+      .f-feature-icon {
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        font-size: 26px;
+        color: #0c2b5b;
+        transition:
+          color 0.25s ease,
+          transform 0.25s ease;
+      }
+
+      .f-feature-card:hover .f-feature-icon {
+        color: #ff781c;
+        transform: scale(1.05);
+      }
+
+      /* CARD CONTENT */
+      .f-feature-content {
+        margin-top: 30px;
+      }
+
+      /* 
+      Heading styled like "WEBINAR" / "SCHEDULE" labels in screenshot:
+      - Uppercase, small, bold, orange 
+      But since these are card titles, we'll use a slightly larger version
+      to keep hierarchy while matching the vibe.
+    */
+      .f-feature-content h3 {
+        font-size: 16px;
+        font-weight: 700;
+        color: #404040d4;
+        margin-bottom: 8px;
+        line-height: 1.5;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        transition: color 0.25s ease;
+      }
+
+      .f-feature-card:hover .f-feature-content h3 {
+        color: #e06500; /* slightly darker orange on hover */
+      }
+
+      /* 
+      Body text styled like the values in the screenshot:
+      - Regular weight, dark navy-grey, clean
+    */
+      .f-feature-content p {
+        font-size: 15px; /* matching screenshot body size */
+        line-height: 1.6;
+        font-weight: 400; /* regular weight, not light */
+        color: #2a3f54; /* dark navy-grey from screenshot */
+        transition: color 0.25s ease;
+      }
+
+      .f-feature-card:hover .f-feature-content p {
+        color: #1a2c3d;
+      }
+
+      /* subtle decorative element — top right soft glow */
+      .f-feature-card::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 90px;
+        height: 90px;
+        background: radial-gradient(
+          circle at 100% 0%,
+          rgba(255, 120, 28, 0.06),
+          transparent 70%
+        );
+        border-radius: 0 0 0 100%;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+      }
+
+      .f-feature-card:hover::after {
+        opacity: 1;
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 900px) {
+        .f-features-section {
+          padding: 65px 5%;
+        }
+
+        .f-features-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 18px;
+        }
+
+        .f-features-header {
+          margin-bottom: 45px;
+        }
+
+        .f-features-header h2 {
+          font-size: 32px;
+        }
+
+        .f-features-header p {
+          font-size: 15px;
+        }
+
+        .f-feature-content h3 {
+          font-size: 13px;
+        }
+
+        .f-feature-content p {
+          font-size: 14px;
+        }
+      }
+
+      @media (max-width: 550px) {
+        .f-features-section {
+          padding: 55px 20px;
+        }
+
+        .f-features-header h2 {
+          font-size: 27px;
+        }
+
+        .f-features-header p {
+          font-size: 14px;
+        }
+
+        .f-features-tag {
+          font-size: 11px;
+          padding: 5px 14px;
+        }
+
+        .f-features-grid {
+          grid-template-columns: 1fr;
+          gap: 14px;
+        }
+
+        .f-feature-card {
+          min-height: 175px;
+          padding: 25px 22px;
+        }
+
+        .f-feature-icon {
+          font-size: 24px;
+        }
+
+        .f-feature-content {
+          margin-top: 25px;
+        }
+
+        .f-feature-content h3 {
+          font-size: 13px;
+        }
+
+        .f-feature-content p {
+          font-size: 14px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section class="f-features-section">
+      <div class="f-features-header">
+        <span class="f-features-tag">WHY CHOOSE US</span>
+        <h2>What Makes Rajesh Academy Different</h2>
+        <p>
+          Discover the unique advantages that set us apart from other trading
+          education providers.
+        </p>
+      </div>
+
+      <div class="f-features-grid">
+        <!-- card 1 -->
+        <div class="f-feature-card">
+          <div class="f-feature-icon">
+            <i class="fa-solid fa-chart-line"></i>
+          </div>
+          <div class="f-feature-content">
+            <h3>Practical Approach</h3>
+            <p>
+              Learn through real market examples and live trading sessions, not
+              just theoretical concepts.
+            </p>
+          </div>
+        </div>
+
+        <!-- card 2 -->
+        <div class="f-feature-card">
+          <div class="f-feature-icon">
+            <i class="fa-solid fa-indian-rupee-sign"></i>
+          </div>
+          <div class="f-feature-content">
+            <h3>Affordable Pricing</h3>
+            <p>
+              Quality education at nominal fees with flexible payment options
+              and special discounts.
+            </p>
+          </div>
+        </div>
+
+        <!-- card 3 -->
+        <div class="f-feature-card">
+          <div class="f-feature-icon">
+            <i class="fa-solid fa-headset"></i>
+          </div>
+          <div class="f-feature-content">
+            <h3>Lifetime Support</h3>
+            <p>
+              Ongoing guidance through exclusive WhatsApp groups and regular
+              market updates.
+            </p>
+          </div>
+        </div>
+
+        <!-- card 4 -->
+        <div class="f-feature-card">
+          <div class="f-feature-icon">
+            <i class="fa-solid fa-video"></i>
+          </div>
+          <div class="f-feature-content">
+            <h3>Recorded Sessions</h3>
+            <p>
+              Lifetime access to all class recordings for review and
+              reinforcement at your pace.
+            </p>
+          </div>
+        </div>
+
+        <!-- card 5 -->
+        <div class="f-feature-card">
+          <div class="f-feature-icon">
+            <i class="fa-solid fa-lightbulb"></i>
+          </div>
+          <div class="f-feature-content">
+            <h3>Unique Strategies</h3>
+            <p>
+              Learn exclusive hedging strategies and techniques not taught
+              elsewhere.
+            </p>
+          </div>
+        </div>
+
+        <!-- card 6 -->
+        <div class="f-feature-card">
+          <div class="f-feature-icon">
+            <i class="fa-solid fa-users"></i>
+          </div>
+          <div class="f-feature-content">
+            <h3>Strong Community</h3>
+            <p>
+              Join a growing network of traders sharing insights and supporting
+              each other.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const cards = document.querySelectorAll(".f-feature-card");
+
+        // Intersection Observer for gentle fade-up
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("f-visible");
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.12 },
+        );
+
+        // initial invisible state + transition
+        cards.forEach((card) => {
+          card.style.opacity = "0";
+          card.style.transform = "translateY(15px)";
+          card.style.transition = "opacity 0.5s ease, transform 0.5s ease";
+          observer.observe(card);
+        });
+
+        // inject the 'visible' class style
+        const style = document.createElement("style");
+        style.textContent = `
+        .f-feature-card.f-visible {
+          opacity: 1 !important;
+          transform: translateY(0) !important;
+        }
+      `;
+        document.head.appendChild(style);
+      });
+    </script>
+  </body>
+</html>
+
+<!-- ---- free webinar ---  -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Join Our Free Live Trading Webinar | Rajesh Academy</title>
+
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        color: #17202b;
+        background: #fff;
+      }
+
+      /* =========================
+           HERO SECTION
+        ========================= */
+
+      .register-hero {
+        position: relative;
+        width: 100%;
+        min-height: auto;
+        background:
+          linear-gradient(
+            90deg,
+            rgba(12, 43, 91, 0.92),
+            rgba(12, 43, 91, 0.85)
+          ),
+          url("https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=2000&q=85");
+
+        background-size: cover;
+        background-position: center;
+      }
+
+      .register-container {
+        width: 100%;
+        max-width: 1220px;
+        margin: auto;
+        position: relative;
+        min-height: auto;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      /* =========================
+           LEFT CONTENT
+        ========================= */
+
+      .register-content {
+        width: 55%;
+        padding-top: 75px;
+        padding-bottom: 50px;
+        color: #fff;
+        padding: 90px 0 65px;
+      }
+
+      .register-small-text {
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+        color: #ff781c;
+      }
+
+      .register-content h1 {
+        font-size: 42px;
+        line-height: 1.2;
+        font-weight: 700;
+        letter-spacing: -1px;
+        margin-bottom: 14px;
+      }
+
+      .register-content h1 span {
+        color: #ff781c;
+      }
+
+      .register-tagline {
+        font-size: 18px;
+        font-weight: 500;
+        color: #fff;
+        margin-bottom: 20px;
+      }
+
+      .register-description {
+        font-size: 15px;
+        line-height: 1.8;
+        font-weight: 400;
+        color: #d9e3f2;
+        max-width: 600px;
+      }
+
+      /* =========================
+           REGISTRATION FORM
+        ========================= */
+
+      .register-form-wrapper {
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 474px;
+        background: #fff;
+        padding: 35px 40px 40px;
+        border-radius: 12px;
+        z-index: 5;
+        box-shadow: 0 20px 50px rgb(0 0 0 / 7%);
+      }
+
+      .register-form-wrapper h2 {
+        font-size: 26px;
+        font-weight: 600;
+        color: #111c2b;
+        margin-bottom: 6px;
+      }
+
+      .form-subtext {
+        font-size: 13.5px;
+        line-height: 1.6;
+        color: #6b7280;
+        margin-bottom: 24px;
+      }
+
+      .register-form {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .register-form input,
+      .register-form textarea,
+      .register-form select {
+        width: 100%;
+        border: 2px solid #00000026;
+        outline: none;
+        background: #fdfcfc;
+        padding: 12px 16px;
+        font-family: "Poppins", sans-serif;
+        font-size: 14px;
+        color: #222;
+        border-radius: 6px;
+        transition: all 0.25s ease;
+      }
+
+      .register-form input,
+      .register-form select {
+        height: 52px;
+      }
+
+      .register-form input::placeholder,
+      .register-form textarea::placeholder {
+        color: #9ca3af;
+        opacity: 1;
+      }
+
+      .register-form input:focus,
+      .register-form textarea:focus,
+      .register-form select:focus {
+        border-color: #ff781c;
+        background: #fff;
+        box-shadow: 0 0 0 3px rgba(255, 120, 28, 0.1);
+      }
+
+      .register-submit {
+        width: 100%;
+        height: 54px;
+        border: none;
+        border-radius: 8px;
+        background: #000d4c;
+        color: #fff;
+        font-family: "Poppins", sans-serif;
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 8px;
+      }
+
+      .register-submit:hover {
+        background: #000d4c;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 8, 245, 0.25);
+      }
+
+      .form-disclaimer {
+        font-size: 11px;
+        line-height: 1.6;
+        color: #8a919e;
+        margin-top: 16px;
+      }
+
+      /* =========================
+           BOTTOM WEBINAR DETAILS SECTION
+        ========================= */
+
+      .register-features {
+        background: #fff;
+        padding: 52px 0;
+      }
+
+      .features-container {
+        max-width: 1220px;
+        margin: auto;
+        display: flex;
+        align-items: flex-start;
+        gap: 40px;
+      }
+
+      .feature-icon {
+        width: 80px;
+        height: 80px;
+        min-width: 80px;
+        border-radius: 50%;
+        background: #ff781c;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 32px;
+        margin-top: 4px;
+      }
+
+      .feature-content {
+        flex: 1;
+      }
+
+      .feature-content h3 {
+        font-size: 24px;
+        font-weight: 600;
+        color: #111c2b;
+        margin-bottom: 24px;
+      }
+
+      /* Webinar details grid inside bottom section */
+      .webinar-grid {
+        list-style: none;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px 70px;
+        max-width: 630px;
+      }
+
+      .webinar-grid li {
+        font-size: 15px;
+        line-height: 1.6;
+        color: #4b5563;
+      }
+
+      .webinar-grid li strong {
+        display: block;
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #ff781c;
+        margin-bottom: 4px;
+      }
+
+      /* =========================
+           RESPONSIVE DESIGN
+        ========================= */
+
+      @media (max-width: 1250px) {
+        .register-container,
+        .features-container {
+          max-width: 92%;
+        }
+
+        .register-content h1 {
+          font-size: 38px;
+        }
+
+        .register-form-wrapper {
+          width: 42%;
+          padding: 30px 30px;
+        }
+      }
+
+      @media (max-width: 900px) {
+        .register-hero {
+          min-height: auto;
+        }
+
+        .register-container {
+          min-height: auto;
+          flex-direction: column;
+          padding: 50px 0 40px;
+        }
+
+        .register-content {
+          width: 100%;
+          padding: 0;
+          margin-bottom: 40px;
+        }
+
+        .register-content h1 {
+          font-size: 34px;
+          max-width: 100%;
+        }
+
+        .register-description {
+          max-width: 100%;
+        }
+
+        .register-form-wrapper {
+          position: relative;
+          top: auto;
+          right: auto;
+          width: 100%;
+          max-width: 540px;
+          margin: 0 auto;
+        }
+
+        .features-container {
+          flex-direction: column;
+          gap: 24px;
+          padding: 40px 0;
+        }
+
+        .webinar-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 20px 30px;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .register-container,
+        .features-container {
+          max-width: 90%;
+        }
+
+        .register-content h1 {
+          font-size: 28px;
+          line-height: 1.25;
+        }
+
+        .register-tagline {
+          font-size: 16px;
+        }
+
+        .register-description {
+          font-size: 14px;
+        }
+
+        .register-form-wrapper {
+          padding: 25px 20px;
+        }
+
+        .register-form-wrapper h2 {
+          font-size: 22px;
+        }
+
+        .register-form input,
+        .register-form select {
+          height: 48px;
+          font-size: 13px;
+        }
+
+        .register-submit {
+          height: 50px;
+          font-size: 14px;
+        }
+
+        .webinar-grid {
+          grid-template-columns: 1fr;
+          gap: 16px;
+        }
+
+        .feature-content h3 {
+          font-size: 20px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- HERO SECTION -->
+    <section class="register-hero">
+      <div class="register-container">
+        <!-- LEFT CONTENT -->
+        <div class="register-content">
+          <p class="register-small-text">Rajesh Academy Presents</p>
+
+          <h1>Free Live <span>Trading Webinar</span></h1>
+
+          <p class="register-tagline">Learn. Understand. Trade Smarter.</p>
+
+          <p class="register-description">
+            Take the first step towards understanding the financial markets with
+            our FREE LIVE WEBINAR, conducted every Sunday by By Rajesh Kumar
+            Pandey. Explore trading concepts, understand market movements, learn
+            practical strategies, and get your trading questions answered in an
+            interactive learning session.
+          </p>
+        </div>
+
+        <!-- RIGHT FORM -->
+        <div class="register-form-wrapper">
+          <h2>Register Now</h2>
+          <p class="form-subtext">
+            Fill in the details below to reserve your spot. Get ready to learn,
+            interact, and take your trading knowledge to the next level.
+          </p>
+
+          <form class="register-form" id="registerForm">
+            <input type="text" name="name" placeholder="Name *" required />
+
+            <input
+              type="tel"
+              name="whatsapp"
+              placeholder="Contact / WhatsApp No *"
+              required
+            />
+
+            <input type="email" name="email" placeholder="E-mail *" required />
+
+            <select name="experience" required>
+              <option value="" disabled selected>Trading Experience *</option>
+              <option value="beginner">Beginner</option>
+              <option value="intermediate">Intermediate</option>
+              <option value="advanced">Advanced</option>
+            </select>
+
+            <input
+              type="text"
+              name="city_state"
+              placeholder="City &amp; State *"
+              required
+            />
+
+            <input type="text" name="broker" placeholder="Broker (Optional)" />
+
+            <button type="submit" class="register-submit">
+              RESERVE MY SPOT
+            </button>
+          </form>
+
+          <p class="form-disclaimer">
+            <strong>Disclaimer:</strong>This webinar is for educational purpose
+            only and not any kind of trading or buy sell advice.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- BOTTOM WEBINAR DETAILS SECTION -->
+    <section class="register-features">
+      <div class="features-container">
+        <div class="feature-icon">
+          <i class="fa-regular fa-calendar-check"></i>
+        </div>
+
+        <div class="feature-content">
+          <h3>Webinar Details</h3>
+
+          <ul class="webinar-grid">
+            <li>
+              <strong>Webinar</strong>
+              Free Live Trading Session
+            </li>
+            <li>
+              <strong>Schedule</strong>
+              Every Sunday
+            </li>
+            <li>
+              <strong>Time</strong>
+              11:00 AM – 1:00 PM IST
+            </li>
+            <li>
+              <strong>Platform</strong>
+              Google Meet
+            </li>
+            <li>
+              <strong>Topic</strong>
+              Selected based on students' interests and suggestions
+            </li>
+            <li>
+              <strong>Entry</strong>
+              100% Free
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- JAVASCRIPT -->
+    <script>
+      const registerForm = document.getElementById("registerForm");
+
+      registerForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        if (!registerForm.checkValidity()) {
+          registerForm.reportValidity();
+          return;
+        }
+
+        const submitButton = registerForm.querySelector(".register-submit");
+
+        submitButton.disabled = true;
+        submitButton.textContent = "SUBMITTING...";
+
+        // Add your form submission / API / Google Sheets integration here.
+
+        setTimeout(() => {
+          submitButton.disabled = false;
+          submitButton.textContent = "RESERVE MY SPOT";
+        }, 1000);
+      });
+    </script>
+  </body>
+</html>
+
+<!-- ---- Testimonial ----  -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Testimonials — auto single-item carousel</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background: #f1f2f6;
+      }
+
+      /* TESTIMONIAL SECTION */
+
+      .testimonial-section {
+        width: 100%;
+        min-height: auto;
+        background: #ffffff;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        padding: 120px 120px 60px;
+        position: relative;
+      }
+
+      .testimonial-section::before {
+        content: "";
+        position: absolute;
+        width: 600px;
+        height: 300px;
+        left: -100px;
+        bottom: -80px;
+        opacity: 0.25;
+        background: repeating-radial-gradient(
+          ellipse at 0% 100%,
+          transparent 0px,
+          transparent 12px,
+          rgba(130, 140, 160, 0.12) 13px,
+          transparent 14px
+        );
+        pointer-events: none;
+      }
+
+      /* MAIN LAYOUT */
+
+      .testimonial-wrapper {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 340px 1fr;
+        gap: 28px;
+        align-items: center;
+        padding-left: max(36px, calc((100vw - 1440px) / 2));
+        position: relative;
+        z-index: 1;
+      }
+
+      /* LEFT CONTENT */
+
+      .testimonial-intro {
+        padding-right: 0;
+        position: relative;
+        z-index: 3;
+      }
+
+      .testimonial-label {
+        font-size: 17px;
+        letter-spacing: 0.3px;
+        color: #ff781c;
+        font-weight: 500;
+        margin-bottom: 8px;
+      }
+
+      .testimonial-intro h2 {
+        font-size: clamp(38px, 3.6vw, 38px);
+        line-height: 1.2;
+        font-weight: 600;
+        color: #20212a;
+        letter-spacing: -1.5px;
+        margin-bottom: 22px;
+      }
+
+      .testimonial-intro p {
+        font-size: 16px;
+        line-height: 1.8;
+        color: #777b89;
+        font-weight: 400;
+      }
+
+      /* SLIDER */
+
+      .testimonial-slider {
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .testimonial-track {
+        display: flex;
+        width: max-content;
+        gap: 28px;
+        will-change: transform;
+        padding: 3px 0px;
+      }
+
+      /* NAV BUTTONS */
+
+      .slider-nav {
+        display: flex;
+        gap: 10px;
+        margin-top: 22px;
+        margin-left: 4px;
+        position: relative;
+        z-index: 4;
+      }
+
+      .nav-btn {
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        border: 1.5px solid rgba(32, 33, 42, 0.14);
+        background: #ffffff;
+        color: #20212a;
+        font-size: 20px;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.22s ease;
+        box-shadow: 0 3px 10px rgba(25, 30, 50, 0.06);
+        padding-bottom: 2px;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .nav-btn:hover {
+        background: #ff781c;
+        border-color: #ff781c;
+        color: #ffffff;
+        box-shadow: 0 6px 16px rgba(255, 23, 68, 0.25);
+      }
+
+      .nav-btn:active {
+        transform: scale(0.94);
+      }
+
+      .nav-btn:focus-visible {
+        outline: 2px solid #ff781c;
+        outline-offset: 2px;
+      }
+
+      /* CARD */
+
+      .testimonial-card {
+        flex: 0 0 365px;
+        min-height: 430px;
+        background: #e9eeff;
+        border-radius: 12px;
+        padding: 35px 42px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border: 1px solid #00002024;
+        box-shadow: 0 10px 30px rgba(25, 30, 50, 0.045);
+      }
+
+      /* QUOTE */
+
+      .testimonial-quote {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .quote-label {
+        color: #ff781c;
+        font-size: 17px;
+        font-weight: 600;
+        margin-bottom: 24px;
+        letter-spacing: 0.2px;
+      }
+
+      .testimonial-quote p {
+        color: #6b6e7c;
+        font-size: 17px;
+        line-height: 1.95;
+        font-weight: 400;
+      }
+
+      /* AUTHOR */
+
+      .testimonial-author {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        margin-top: 30px;
+      }
+
+      .testimonial-author img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+        background: #f1f2f6;
+        flex-shrink: 0;
+      }
+
+      .author-details h4 {
+        color: #20212a;
+        font-size: 17px;
+        font-weight: 700;
+        line-height: 1.5;
+      }
+
+      .author-details span {
+        display: block;
+        color: #858896;
+        font-size: 14px;
+        margin-top: 2px;
+      }
+
+      /* RESPONSIVE — 1100px */
+
+      @media (max-width: 1100px) {
+        .testimonial-wrapper {
+          grid-template-columns: 280px 1fr;
+          gap: 22px;
+          padding-left: 30px;
+        }
+
+        .testimonial-card {
+          flex-basis: 360px;
+          padding: 38px 32px;
+          min-height: 560px;
+        }
+
+        .testimonial-intro h2 {
+          font-size: 42px;
+        }
+
+        .testimonial-quote p {
+          font-size: 16px;
+          line-height: 1.85;
+        }
+
+        .quote-label {
+          font-size: 16px;
+          margin-bottom: 20px;
+        }
+
+        .testimonial-author img {
+          width: 54px;
+          height: 54px;
+        }
+
+        .author-details h4 {
+          font-size: 16px;
+        }
+      }
+
+      /* RESPONSIVE — 700px */
+
+      @media (max-width: 700px) {
+        .testimonial-section {
+          padding: 55px 0;
+          min-height: auto;
+        }
+
+        .testimonial-wrapper {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          padding-left: 20px;
+          gap: 36px;
+        }
+
+        .testimonial-intro {
+          padding-right: 20px;
+        }
+
+        .testimonial-label {
+          font-size: 15px;
+          margin-bottom: 6px;
+        }
+
+        .testimonial-intro h2 {
+          font-size: 38px;
+          margin-bottom: 16px;
+          letter-spacing: -1px;
+        }
+
+        .testimonial-intro p {
+          font-size: 14px;
+          line-height: 1.75;
+        }
+
+        .testimonial-slider {
+          width: calc(100vw - 20px);
+        }
+
+        .testimonial-track {
+          gap: 16px;
+        }
+
+        .testimonial-card {
+          flex-basis: 300px;
+          min-height: 500px;
+          padding: 30px 24px;
+        }
+
+        .quote-label {
+          font-size: 15px;
+          margin-bottom: 16px;
+        }
+
+        .testimonial-quote p {
+          font-size: 14.5px;
+          line-height: 1.8;
+        }
+
+        .testimonial-author {
+          gap: 14px;
+          margin-top: 24px;
+        }
+
+        .testimonial-author img {
+          width: 48px;
+          height: 48px;
+        }
+
+        .author-details h4 {
+          font-size: 14px;
+        }
+
+        .author-details span {
+          font-size: 12px;
+        }
+
+        .slider-nav {
+          margin-top: 18px;
+        }
+
+        .nav-btn {
+          width: 42px;
+          height: 42px;
+          font-size: 18px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .testimonial-track {
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <section class="testimonial-section">
+      <div class="testimonial-wrapper">
+        <!-- LEFT CONTENT -->
+
+        <div class="testimonial-intro">
+          <div class="testimonial-label">Our Testimonials</div>
+
+          <h2>
+            What Students<br />
+            are Saying..!!
+          </h2>
+
+          <p>
+            Our goal is to empower every learner with practical trading
+            knowledge, proven strategies and the right guidance to navigate
+            financial markets with confidence.
+          </p>
+
+          <!-- NAV BUTTONS -->
+          <div
+            class="slider-nav"
+            role="group"
+            aria-label="Testimonial navigation"
+          >
+            <button
+              class="nav-btn"
+              id="prevBtn"
+              aria-label="Previous testimonial"
+            >
+              &#8249;
+            </button>
+            <button class="nav-btn" id="nextBtn" aria-label="Next testimonial">
+              &#8250;
+            </button>
+          </div>
+        </div>
+
+        <!-- AUTO SINGLE-ITEM CAROUSEL -->
+
+        <div class="testimonial-slider">
+          <div class="testimonial-track" id="testimonialTrack">
+            <!-- Cards generated through JavaScript (duplicated for infinite loop) -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      /* TESTIMONIAL DATA */
+
+      const testimonials = [
+        {
+          name: "Debasis Bhattacharya",
+          quote:
+            "One of the best teachers I've ever met. Extremely dedicated, always eager to share every bit of knowledge with students.",
+        },
+
+        {
+          name: "Bharat Choudhary",
+          quote:
+            "मैंने पहले बहुत नुकसान किया और कई महंगे कोर्स किए, लेकिन इतनी कम फीस में जो सर ने सिखाया वैसा कहीं नहीं सिखाया गया। अब मैं सर की हेजिंग स्ट्रेटेजी से 10% से ज़्यादा लाभ कमा लेता हूँ।",
+        },
+
+        {
+          name: "Nitin",
+          quote:
+            "No doubt I got 10 times more than the fee I paid. Excellent content, excellent explanation. One of the best courses I've ever joined.",
+        },
+
+        {
+          name: "Ajay Kumar Sahu",
+          quote:
+            "सर इतना बढ़िया समझाते हैं कि कठिन बातें भी आसान लगने लगती हैं। अब मैं बाजार की किसी भी स्थिति में मुनाफा बना लेता हूँ। पिछले महीने मैंने ₹62,000 का प्रॉफिट कमाया। इसके लिए सर को धन्यवाद।",
+        },
+
+        {
+          name: "Arindam",
+          quote:
+            "I gained immensely from the course. My overtrading habit is gone, and now I consistently make ₹10,000 to ₹20,000 per day.",
+        },
+
+        {
+          name: "Deepak Kedare",
+          quote:
+            "The content and explanations are outstanding. Sir sometimes teaches for 6 hours straight just to clear all doubts. He's incredibly dedicated—even answers calls personally.",
+        },
+      ];
+
+      /* CARD GENERATOR */
+
+      const track = document.getElementById("testimonialTrack");
+      const prevBtn = document.getElementById("prevBtn");
+      const nextBtn = document.getElementById("nextBtn");
+
+      const profileImage =
+        "https://www.rajeshacademy.in/wp-content/uploads/2025/05/profile-icon.jpg";
+
+      function createTestimonialCard(item) {
+        return `
+        <div class="testimonial-card">
+
+            <div class="testimonial-quote">
+
+                <div class="quote-label">
+                    Student Experience
+                </div>
+
+                <p>${item.quote}</p>
+
+            </div>
+
+            <div class="testimonial-author">
+
+                <img
+                    src="${profileImage}"
+                    alt="${item.name}"
+                    loading="lazy"
+                >
+
+                <div class="author-details">
+
+                    <h4>${item.name}</h4>
+
+                    <span>Student</span>
+
+                </div>
+
+            </div>
+
+        </div>
+    `;
+      }
+
+      /* --------------------------------------------------------------
+   BUILD CARDS — duplicate the set so we can loop seamlessly
+   -------------------------------------------------------------- */
+
+      const cardsHTML = testimonials.map(createTestimonialCard).join("");
+
+      /* Original + duplicate = seamless loop when jumping back */
+      track.innerHTML = cardsHTML + cardsHTML;
+
+      const totalCards = testimonials.length; // number of UNIQUE cards
+
+      /* --------------------------------------------------------------
+   AUTO SINGLE-ITEM SLIDE CAROUSEL (infinite, never-ending)
+   -------------------------------------------------------------- */
+
+      const AUTO_INTERVAL = 3800; // ms between automatic slides
+      const TRANSITION_MS = 650; // must match CSS transition duration
+
+      let currentIndex = 0; // index in the FULL (duplicated) track
+      let isTransitioning = false;
+      let autoTimer = null;
+      let isPaused = false;
+
+      /* measure distance between two cards (card width + gap) */
+      function getStep() {
+        const card = track.querySelector(".testimonial-card");
+        if (!card) return 0;
+        const style = getComputedStyle(track);
+        const gap = parseFloat(style.gap) || 0;
+        return card.getBoundingClientRect().width + gap;
+      }
+
+      /* instantly set the transform (no animation) */
+      function setTranslate(offsetPx) {
+        track.style.transition = "none";
+        track.style.transform = `translateX(${-offsetPx}px)`;
+        /* force reflow so the browser registers the jump */
+        void track.offsetWidth;
+      }
+
+      /* animated slide to the given card index */
+      function slideTo(index, animate = true) {
+        const step = getStep();
+        if (animate) {
+          track.style.transition = `transform ${TRANSITION_MS}ms cubic-bezier(0.22, 0.61, 0.36, 1)`;
+        } else {
+          track.style.transition = "none";
+        }
+        track.style.transform = `translateX(${-index * step}px)`;
+      }
+
+      /* go to next card (infinite) */
+      function goNext() {
+        if (isTransitioning) return;
+        isTransitioning = true;
+
+        currentIndex += 1;
+        slideTo(currentIndex, true);
+
+        /* when we've moved into the duplicated set (second half),
+       after the animation completes, silently jump back by one full set
+       so we can keep going forever without hitting the edge */
+        setTimeout(() => {
+          if (currentIndex >= totalCards) {
+            currentIndex -= totalCards; // shift back to the first set
+            setTranslate(currentIndex * getStep()); // jump without animation
+          }
+          isTransitioning = false;
+        }, TRANSITION_MS + 20);
+      }
+
+      /* go to previous card (infinite) */
+      function goPrev() {
+        if (isTransitioning) return;
+        isTransitioning = true;
+
+        /* If we're at the beginning (first set), jump to the mirrored position
+       in the duplicated set first, then animate backwards. */
+        if (currentIndex <= 0) {
+          currentIndex += totalCards; // move into duplicated set
+          setTranslate(currentIndex * getStep()); // instant jump
+          /* force reflow so the next animated slide works */
+          void track.offsetWidth;
+        }
+
+        currentIndex -= 1;
+        slideTo(currentIndex, true);
+
+        setTimeout(() => {
+          isTransitioning = false;
+        }, TRANSITION_MS + 20);
+      }
+
+      /* auto-play */
+      function startAuto() {
+        stopAuto();
+        autoTimer = setInterval(() => {
+          if (!isPaused && !isTransitioning) {
+            goNext();
+          }
+        }, AUTO_INTERVAL);
+      }
+
+      function stopAuto() {
+        if (autoTimer) {
+          clearInterval(autoTimer);
+          autoTimer = null;
+        }
+      }
+
+      /* BUTTON EVENTS — manual navigation resets the auto timer */
+
+      nextBtn.addEventListener("click", () => {
+        if (isTransitioning) return;
+        goNext();
+        startAuto(); // restart timer so user gets a full interval before next auto slide
+      });
+
+      prevBtn.addEventListener("click", () => {
+        if (isTransitioning) return;
+        goPrev();
+        startAuto();
+      });
+
+      /* PAUSE ON HOVER (over the slider only) */
+      const slider = document.querySelector(".testimonial-slider");
+
+      slider.addEventListener("mouseenter", () => {
+        isPaused = true;
+      });
+
+      slider.addEventListener("mouseleave", () => {
+        isPaused = false;
+      });
+
+      /* PAUSE ON FOCUS inside slider (accessibility) */
+      slider.addEventListener("focusin", () => {
+        isPaused = true;
+      });
+
+      slider.addEventListener("focusout", () => {
+        isPaused = false;
+      });
+
+      /* KEYBOARD SUPPORT */
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowRight") {
+          if (isTransitioning) return;
+          goNext();
+          startAuto();
+        } else if (e.key === "ArrowLeft") {
+          if (isTransitioning) return;
+          goPrev();
+          startAuto();
+        }
+      });
+
+      /* INITIALISE */
+
+      function initCarousel() {
+        /* set initial position instantly, no transition */
+        setTranslate(0);
+        currentIndex = 0;
+        isTransitioning = false;
+
+        /* start auto after a tiny delay to let layout settle */
+        setTimeout(() => {
+          startAuto();
+        }, 800);
+      }
+
+      /* wait for fonts/images so measurements are accurate */
+      window.addEventListener("load", () => {
+        requestAnimationFrame(initCarousel);
+      });
+
+      /* RECALCULATE ON RESIZE — keep current card aligned */
+      let resizeTimer;
+      window.addEventListener("resize", () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          if (!isTransitioning) {
+            /* clamp index if it somehow went out of range */
+            if (currentIndex >= totalCards * 2) {
+              currentIndex = currentIndex % totalCards;
+            }
+            setTranslate(currentIndex * getStep());
+          }
+        }, 120);
+      });
+
+      /* REDUCED MOTION — disable transitions and auto-play */
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        track.style.transition = "none";
+        /* override startAuto to do nothing */
+        startAuto = function () {};
+      }
+    </script>
+  </body>
+</html>
